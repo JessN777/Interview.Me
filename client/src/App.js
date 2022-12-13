@@ -1,7 +1,7 @@
-import HomePage from "./HomePage";
+import HomePage from "./pages/HomePage";
+import PositionPage from "./pages//PositionPage";
+import QuestionsPage from "./pages/QuestionsPage";
 import NavBar from "./NavBar";
-import PositionPage from "./PositionPage";
-import QuestionsPage from "./QuestionsPage";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
 function App() {
