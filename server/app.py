@@ -2,13 +2,11 @@ import os
 import openai
 import requests
 from flask import Flask, request
-from flask_cors import cross_origin, CORS
+from flask_cors import cross_origin
 
 
 app = Flask(__name__)
-CORS(app)
-#Feel free to use this trial key
-openai.api_key ="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"
+openai.api_key = os.getenv("OPENAI_API_KEY")
 
 @app.route("/")
 def hello():
