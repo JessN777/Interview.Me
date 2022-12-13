@@ -3,7 +3,7 @@ import { Paper, TextField, Button } from "@mui/material";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
-const ManualForm = () => {
+const HomePage = () => {
   const navigate = useNavigate();
   const axiosinstance = axios.create({
     baseURL: "http://localhost:5000",
@@ -37,7 +37,7 @@ const ManualForm = () => {
     //     console.log(error);
     //   });
 
-    navigate("/test");
+    navigate("/position");
 
     setFormValues({});
   };
@@ -52,14 +52,14 @@ const ManualForm = () => {
           value={formValues.companyName || ""}
           onChange={handleFormChange}
         />
-        <TextField
+        {/* <TextField
           label="Interview Position"
           variant="outlined"
           margin="normal"
           name="companyPosition"
           value={formValues.companyPosition || ""}
           onChange={handleFormChange}
-        />
+        /> */}
         <TextField
           label="Company Values"
           variant="outlined"
@@ -76,4 +76,4 @@ const ManualForm = () => {
   );
 };
 
-export default ManualForm;
+export default HomePage;
