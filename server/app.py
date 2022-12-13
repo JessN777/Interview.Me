@@ -28,8 +28,6 @@ def create_question():
   presence_penalty=0.0,
   stop=["You:"]
   )
-
-  print(response)
   return response
 
 @app.route("/transcribe_audio")
