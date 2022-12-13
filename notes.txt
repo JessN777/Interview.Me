@@ -1,0 +1,2 @@
+python3 -m venv fl_venv
+james.shi@james server % source fl_venv/bin/activate
