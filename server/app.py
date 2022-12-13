@@ -2,12 +2,13 @@ import os
 import openai
 import requests
 from flask import Flask, request
-from flask_cors import cross_origin
+from flask_cors import cross_origin, CORS
 
 
 app = Flask(__name__)
+CORS(app)
 #Feel free to use this trial key
-openai.api_key = "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"
+openai.api_key ="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"
 
 @app.route("/")
 def hello():
@@ -42,8 +43,6 @@ def process_audio_answer():
   ]
   response = requests.request("POST", url, data=payload, files=files)
   return response.text
-
-print(process_audio_answer())
 
 if __name__ == "__main__":
     app.run()

@@ -26,9 +26,6 @@ const ManualForm = () => {
     axiosinstance
       .post("/create_question", {
         prompt: prompt,
-        headers: {
-          "Access-Control-Allow-Origin": "*",
-        },
       })
       .then((response) => {
         console.log(response);
