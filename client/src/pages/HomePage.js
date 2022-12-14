@@ -44,6 +44,7 @@ const HomePage = () => {
   return (
     <Paper style={{ display: "flex", justifyContent: "center", padding: 20 }}>
       <div style={{ display: "flex", flexDirection: "column" }}>
+        <div> Hello World </div>
         <TextField
           label="Company Name"
           variant="outlined"

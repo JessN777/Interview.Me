@@ -1,6 +1,7 @@
 import HomePage from "./pages/HomePage";
 import PositionPage from "./pages//PositionPage";
 import QuestionsPage from "./pages/QuestionsPage";
+import InterviewPage from "./pages/InterviewPage";
 import NavBar from "./NavBar";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
@@ -13,6 +14,7 @@ function App() {
           <Route exact path="/" element={<HomePage />} />
           <Route path="/position" element={<PositionPage />} />
           <Route path="/questions" element={<QuestionsPage />} />
+          <Route path="/interview" element={<InterviewPage />} />
         </Routes>
       </Router>
     </div>
