@@ -1,5 +1,16 @@
 import React, { useState } from "react";
-import { Paper, TextField, Button } from "@mui/material";
+import {
+  Paper,
+  TextField,
+  Button,
+  Card,
+  CardContent,
+  CardActions,
+  CardMedia,
+  Typography,
+  Grid,
+  Container,
+} from "@mui/material";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
@@ -44,7 +55,160 @@ const HomePage = () => {
   return (
     <Paper style={{ display: "flex", justifyContent: "center", padding: 20 }}>
       <div style={{ display: "flex", flexDirection: "column" }}>
-        <div> Hello World </div>
+        <Typography
+          variant="h6"
+          style={{
+            flexGrow: 1,
+            textAlign: "left",
+            color: "black",
+            fontWeight: "bold",
+          }}
+        >
+          Better Prepare For Interviews
+        </Typography>
+
+        <Typography
+          variant="b2"
+          style={{
+            flexGrow: 1,
+            textAlign: "left",
+            color: "black",
+            fontWeight: "normal",
+          }}
+        >
+          Internships are a great way to gain work experience and transition
+          into a role post-graduation. Our team has built an application to
+          provide you with feedback to
+        </Typography>
+
+        <Typography
+          variant="b2"
+          style={{
+            flexGrow: 1,
+            textAlign: "left",
+            color: "black",
+            fontWeight: "normal",
+          }}
+        >
+          ace the behavioral interview. We will help you better structure your
+          response, align with the company’s values and leave a strong lasting
+          impression.
+        </Typography>
+
+        <Grid container my={1} spacing={3}>
+          <Grid item>
+            <Card sx={{ minWidth: 345, maxWidth: 345 }}>
+              <CardMedia
+                component="img"
+                height="100"
+                image={require("./amazon-logo.png")}
+                alt="amazon"
+              />
+              <CardContent>
+                <Typography gutterBottom variant="h5" component="div">
+                  Amazon
+                </Typography>
+              </CardContent>
+              <CardActions>
+                <Button size="small">Select</Button>
+              </CardActions>
+            </Card>
+          </Grid>
+          <Grid item>
+            <Card sx={{ minWidth: 345, maxWidth: 345 }}>
+              <CardMedia
+                component="img"
+                height="100"
+                image={require("./Google.jpg")}
+                alt="google"
+              />
+              <CardContent>
+                <Typography gutterBottom variant="h5" component="div">
+                  Uber
+                </Typography>
+              </CardContent>
+              <CardActions>
+                <Button size="small">Select</Button>
+              </CardActions>
+            </Card>
+          </Grid>
+          <Grid item>
+            <Card sx={{ minWidth: 345, maxWidth: 345 }}>
+              <CardMedia
+                component="img"
+                height="100"
+                image={require("./Uber.jpg")}
+                alt="Uber"
+              />
+              <CardContent>
+                <Typography gutterBottom variant="h5" component="div">
+                  Amazon
+                </Typography>
+              </CardContent>
+              <CardActions>
+                <Button size="small">Select</Button>
+              </CardActions>
+            </Card>
+          </Grid>
+        </Grid>
+
+        <Grid container my={3} spacing={3}>
+          <Grid item>
+            <Card sx={{ minWidth: 345, maxWidth: 345 }}>
+              <CardMedia
+                component="img"
+                height="100"
+                image={require("./Microsoft.png")}
+                alt="Microsoft"
+              />
+              <CardContent>
+                <Typography gutterBottom variant="h5" component="div">
+                  Amazon
+                </Typography>
+              </CardContent>
+              <CardActions>
+                <Button size="small">Select</Button>
+              </CardActions>
+            </Card>
+          </Grid>
+          <Grid item>
+            <Card sx={{ minWidth: 345, maxWidth: 345 }}>
+              <CardMedia
+                component="img"
+                height="100"
+                image={require("./Salesforce.png")}
+                alt="Salesforce"
+              />
+              <CardContent>
+                <Typography gutterBottom variant="h5" component="div">
+                  Uber
+                </Typography>
+              </CardContent>
+              <CardActions>
+                <Button size="small">Select</Button>
+              </CardActions>
+            </Card>
+          </Grid>
+          <Grid item>
+            <Card sx={{ minWidth: 345, maxWidth: 345 }}>
+              <CardMedia
+                component="img"
+                height="100"
+                image={require("./Tesla.png")}
+                alt="Tesla"
+              />
+              <CardContent>
+                <Typography gutterBottom variant="h5" component="div">
+                  Amazon
+                </Typography>
+              </CardContent>
+              <CardActions>
+                <Button size="small">Select</Button>
+              </CardActions>
+            </Card>
+          </Grid>
+        </Grid>
+
         <TextField
           label="Company Name"
           variant="outlined"
