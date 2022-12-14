@@ -9,6 +9,7 @@ import {
   Button,
 } from "@mui/material";
 import { useNavigate } from "react-router-dom";
+import { setGlobalState } from "../global";
 
 const samplePositions = [
   ["Software Developer", "Placeholder Traits"],
@@ -25,21 +26,23 @@ const samplePositions = [
 
 const PositionPage = () => {
   const navigate = useNavigate();
-  const handlePositionSelect = () => {
-    console.log(`We will do something with ${positionValue}`);
+  const handlePositionSelect = (position) => {
+    setGlobalState("companyPosition", position);
     navigate("/questions");
   };
 
-  const [positionValue, setPositionValue] = useState(samplePositions[0]);
+  const [positionValue, setPositionValue] = useState(samplePositions[0][0]);
+  const [hoverIndex, setHoverIndex] = useState(0);
 
   return (
     <Paper style={{ display: "flex", justifyContent: "center", padding: 20 }}>
       <div style={{ display: "flex", flexDirection: "column" }}>
         <Grid container>
-          {samplePositions.map((role) => (
-            <Grid item key={role[0]}>
+          {samplePositions.map((position, index) => (
+            <Grid item key={position[0]}>
               <Card
                 sx={{
+                  backgroundColor: hoverIndex === index ? "lightblue" : "white",
                   height: 50,
                   width: 300,
                   display: "flex",
@@ -48,12 +51,13 @@ const PositionPage = () => {
               >
                 <CardActionArea
                   onClick={() => {
-                    setPositionValue(role[0]);
+                    setPositionValue(position[0]);
+                    setHoverIndex(index);
                   }}
                 >
                   <CardContent sx={{ flexGrow: 1 }}>
                     <Typography gutterBottom variant="h5" component="h2">
-                      {role[0]}
+                      {position[0]}
                     </Typography>
                   </CardContent>
                 </CardActionArea>
@@ -64,7 +68,7 @@ const PositionPage = () => {
         <Button
           variant="contained"
           color="primary"
-          onClick={handlePositionSelect}
+          onClick={() => handlePositionSelect(positionValue)}
         >
           Submit
         </Button>

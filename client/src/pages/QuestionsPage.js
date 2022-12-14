@@ -1,15 +1,16 @@
 import React, { useState } from "react";
 import { Paper, Typography, Button, TextField } from "@mui/material";
 import { useNavigate } from "react-router-dom";
+import { setGlobalState } from "../global";
 
 const QuestionsPage = () => {
   const navigate = useNavigate();
-  // const handleQuestions = () => {
-  //   console.log(`We will do something here`);
-  //   navigate("/Interview");
-  // };
 
-  const [formValues, setFormValues] = useState({});
+  const [formValues, setFormValues] = useState({
+    Question1: "",
+    Question2: "",
+    Question3: "",
+  });
 
   const handleFormChange = (event) => {
     setFormValues({
@@ -19,10 +20,14 @@ const QuestionsPage = () => {
   };
 
   const handleFormSubmit = () => {
-    // Do stuff in here to make sure AI knows questions and bring to next page;
+    const questions = [
+      formValues["Question1"],
+      formValues["Question2"],
+      formValues["Question3"],
+    ];
+    setGlobalState("questions", questions);
 
     navigate("/interview");
-
     setFormValues({});
   };
 

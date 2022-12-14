@@ -5,14 +5,12 @@ import {
   Button,
   Card,
   CardContent,
-  CardActions,
   CardMedia,
   Typography,
   Grid,
-  requirePropFactory,
 } from "@mui/material";
-import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { setGlobalState } from "../global";
 
 const companyProfiles = [
   {
@@ -49,39 +47,25 @@ const companyProfiles = [
 
 const HomePage = () => {
   const navigate = useNavigate();
-
   const [formValues, setFormValues] = useState({});
 
-  const handleFormChange = (event) => {
+  const handleCompanySelection = (companyName, companyValues) => {
+    //There is a delay between setting and getting
+    setGlobalState("companyName", companyName);
+    setGlobalState("companyValues", companyValues);
+    navigate("/position");
+  };
+
+  const handleFormChange = (e) => {
     setFormValues({
       ...formValues,
-      [event.target.name]: event.target.value,
+      [e.target.name]: e.target.value,
     });
   };
 
-  // const axiosinstance = axios.create({
-  //   baseURL: "http://localhost:5000",
-  // });
-
   const handleFormSubmit = () => {
-    // const prompt = {
-    //   message: `You are an interviewer named 'InterviewBot' interviewing an applicant applying for a company similar to ${formValues.companyName}. Through your questions you want to assess whether the candidate possess ${formValues.companyValues} and is suitable for a ${formValues.companyPosition} position at ${formValues.companyName}.
-    // You: Thank you for taking the time to interview me, InterviewBot!"`,
-    // };
-    // console.log(prompt);
-    // console.log(typeof prompt);
-    // axiosinstance
-    //   .post("/create_question", {
-    //     prompt: prompt,
-    //   })
-    //   .then((response) => {
-    //     console.log(response);
-    //     console.log(response.data.choices[0].text);
-    //   })
-    //   .catch((error) => {
-    //     console.log(error);
-    //   });
-
+    setGlobalState("companyName", formValues.companyName);
+    setGlobalState("companyValues", formValues.companyValues);
     navigate("/position");
 
     setFormValues({});
@@ -129,25 +113,32 @@ const HomePage = () => {
           impression.
         </Typography>
 
-        <Grid container my={1} spacing={3}>
-          {companyProfiles.map((company, index) => (
+        <Grid justifyContent="center" container my={1} spacing={3}>
+          {companyProfiles.map((company) => (
             <Grid item key={company.companyName}>
-              <Card sx={{ minWidth: 345, maxWidth: 345 }}>
-                <CardMedia
-                  component="img"
-                  height="100"
-                  image={require("..//images/amazon-logo.png")}
-                  alt="amazon"
-                />
-                <CardContent>
-                  <Typography gutterBottom variant="h5" component="div">
-                    {company.companyName}
-                  </Typography>
-                </CardContent>
-                <CardActions>
-                  <Button size="small">Select</Button>
-                </CardActions>
-              </Card>
+              <Button
+                sx={{ textTransform: "none" }}
+                onClick={() =>
+                  handleCompanySelection(
+                    company.companyName,
+                    company.companyValues
+                  )
+                }
+              >
+                <Card sx={{ minWidth: 345, maxWidth: 345 }}>
+                  <CardMedia
+                    component="img"
+                    height="100"
+                    image={require("..//images/amazon-logo.png")}
+                    alt="amazon"
+                  />
+                  <CardContent>
+                    <Typography gutterBottom variant="h5" component="div">
+                      {company.companyName}
+                    </Typography>
+                  </CardContent>
+                </Card>
+              </Button>
             </Grid>
           ))}
         </Grid>
