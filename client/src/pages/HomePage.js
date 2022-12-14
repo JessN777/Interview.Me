@@ -9,16 +9,46 @@ import {
   CardMedia,
   Typography,
   Grid,
-  Container,
+  requirePropFactory,
 } from "@mui/material";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
+const companyProfiles = [
+  {
+    companyName: "Amazon",
+    pictureUrl: "..//images/amazon-logo.png",
+    companyValues: "commitment, teamwork, communication",
+  },
+  {
+    companyName: "Google",
+    pictureUrl: "..//images/Google.jpg",
+    companyValues: "commitment, teamwork, communication",
+  },
+  {
+    companyName: "Microsoft",
+    pictureUrl: "..//images/Microsoft.png",
+    companyValues: "commitment, teamwork, communication",
+  },
+  {
+    companyName: "Salesforce",
+    pictureUrl: "..//images/Salesforce.png",
+    companyValues: "commitment, teamwork, communication",
+  },
+  {
+    companyName: "Tesla",
+    pictureUrl: "..//images/Tesla.png",
+    companyValues: "commitment, teamwork, communication",
+  },
+  {
+    companyName: "Uber",
+    pictureUrl: "..//images/Uber.png",
+    companyValues: "commitment, teamwork, communication",
+  },
+];
+
 const HomePage = () => {
   const navigate = useNavigate();
-  const axiosinstance = axios.create({
-    baseURL: "http://localhost:5000",
-  });
 
   const [formValues, setFormValues] = useState({});
 
@@ -28,6 +58,10 @@ const HomePage = () => {
       [event.target.name]: event.target.value,
     });
   };
+
+  // const axiosinstance = axios.create({
+  //   baseURL: "http://localhost:5000",
+  // });
 
   const handleFormSubmit = () => {
     // const prompt = {
@@ -96,117 +130,26 @@ const HomePage = () => {
         </Typography>
 
         <Grid container my={1} spacing={3}>
-          <Grid item>
-            <Card sx={{ minWidth: 345, maxWidth: 345 }}>
-              <CardMedia
-                component="img"
-                height="100"
-                image={require("./amazon-logo.png")}
-                alt="amazon"
-              />
-              <CardContent>
-                <Typography gutterBottom variant="h5" component="div">
-                  Amazon
-                </Typography>
-              </CardContent>
-              <CardActions>
-                <Button size="small">Select</Button>
-              </CardActions>
-            </Card>
-          </Grid>
-          <Grid item>
-            <Card sx={{ minWidth: 345, maxWidth: 345 }}>
-              <CardMedia
-                component="img"
-                height="100"
-                image={require("./Google.jpg")}
-                alt="google"
-              />
-              <CardContent>
-                <Typography gutterBottom variant="h5" component="div">
-                  Uber
-                </Typography>
-              </CardContent>
-              <CardActions>
-                <Button size="small">Select</Button>
-              </CardActions>
-            </Card>
-          </Grid>
-          <Grid item>
-            <Card sx={{ minWidth: 345, maxWidth: 345 }}>
-              <CardMedia
-                component="img"
-                height="100"
-                image={require("./Uber.jpg")}
-                alt="Uber"
-              />
-              <CardContent>
-                <Typography gutterBottom variant="h5" component="div">
-                  Amazon
-                </Typography>
-              </CardContent>
-              <CardActions>
-                <Button size="small">Select</Button>
-              </CardActions>
-            </Card>
-          </Grid>
-        </Grid>
-
-        <Grid container my={3} spacing={3}>
-          <Grid item>
-            <Card sx={{ minWidth: 345, maxWidth: 345 }}>
-              <CardMedia
-                component="img"
-                height="100"
-                image={require("./Microsoft.png")}
-                alt="Microsoft"
-              />
-              <CardContent>
-                <Typography gutterBottom variant="h5" component="div">
-                  Amazon
-                </Typography>
-              </CardContent>
-              <CardActions>
-                <Button size="small">Select</Button>
-              </CardActions>
-            </Card>
-          </Grid>
-          <Grid item>
-            <Card sx={{ minWidth: 345, maxWidth: 345 }}>
-              <CardMedia
-                component="img"
-                height="100"
-                image={require("./Salesforce.png")}
-                alt="Salesforce"
-              />
-              <CardContent>
-                <Typography gutterBottom variant="h5" component="div">
-                  Uber
-                </Typography>
-              </CardContent>
-              <CardActions>
-                <Button size="small">Select</Button>
-              </CardActions>
-            </Card>
-          </Grid>
-          <Grid item>
-            <Card sx={{ minWidth: 345, maxWidth: 345 }}>
-              <CardMedia
-                component="img"
-                height="100"
-                image={require("./Tesla.png")}
-                alt="Tesla"
-              />
-              <CardContent>
-                <Typography gutterBottom variant="h5" component="div">
-                  Amazon
-                </Typography>
-              </CardContent>
-              <CardActions>
-                <Button size="small">Select</Button>
-              </CardActions>
-            </Card>
-          </Grid>
+          {companyProfiles.map((company, index) => (
+            <Grid item key={company.companyName}>
+              <Card sx={{ minWidth: 345, maxWidth: 345 }}>
+                <CardMedia
+                  component="img"
+                  height="100"
+                  image={require("..//images/amazon-logo.png")}
+                  alt="amazon"
+                />
+                <CardContent>
+                  <Typography gutterBottom variant="h5" component="div">
+                    {company.companyName}
+                  </Typography>
+                </CardContent>
+                <CardActions>
+                  <Button size="small">Select</Button>
+                </CardActions>
+              </Card>
+            </Grid>
+          ))}
         </Grid>
 
         <TextField
@@ -217,14 +160,6 @@ const HomePage = () => {
           value={formValues.companyName || ""}
           onChange={handleFormChange}
         />
-        {/* <TextField
-          label="Interview Position"
-          variant="outlined"
-          margin="normal"
-          name="companyPosition"
-          value={formValues.companyPosition || ""}
-          onChange={handleFormChange}
-        /> */}
         <TextField
           label="Company Values"
           variant="outlined"

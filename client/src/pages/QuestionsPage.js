@@ -1,23 +1,13 @@
 import React, { useState } from "react";
-import {
-  Paper,
-  Card,
-  CardActionArea,
-  CardContent,
-  Typography,
-  Grid,
-  Button,
-  TextField,
-  Container,
-} from "@mui/material";
+import { Paper, Typography, Button, TextField } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 
 const QuestionsPage = () => {
   const navigate = useNavigate();
-  const handleQuestions = () => {
-    console.log(`We will do something here`);
-    // navigate("/Interview");
-  };
+  // const handleQuestions = () => {
+  //   console.log(`We will do something here`);
+  //   navigate("/Interview");
+  // };
 
   const [formValues, setFormValues] = useState({});
 
