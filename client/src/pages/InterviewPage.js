@@ -42,6 +42,13 @@ const QuestionOutputSection = () => {
 
   return (
     <>
+      <Typography variant="h6">Interview</Typography>
+      <Typography>
+        Listen to the question asked. Use the speaker button to replay the
+        interview question again. Use the microphone button to record you
+        response. Press the microphone button again to stop recording your
+        response.
+      </Typography>
       <Typography>This is where the questions will output:</Typography>
       <Button onClick={handleQuestionCall}>
         This is a placeholder button to trigger the api call
@@ -102,7 +109,12 @@ const AudioInputSection = () => {
       <Grid container direction="column">
         <Typography variant="h6">Current answer</Typography>
         {isListening ? <MicIcon /> : <MicOffIcon />}
-        <Button width={0.6} onClick={handleSaveAnswer} disabled={!answer}>
+        <Button
+          width={0.6}
+          onClick={handleSaveAnswer}
+          disabled={!answer}
+          variant="contained"
+        >
           Keep Answer
         </Button>
         <Button
