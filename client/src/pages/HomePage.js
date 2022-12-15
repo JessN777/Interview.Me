@@ -15,32 +15,32 @@ import { setGlobalState } from "../global";
 const companyProfiles = [
   {
     companyName: "Amazon",
-    pictureUrl: "..//images/amazon-logo.png",
+    pictureUrl: require("..//images/amazon-logo.png"),
     companyValues: "commitment, teamwork, communication",
   },
   {
     companyName: "Google",
-    pictureUrl: "..//images/Google.jpg",
+    pictureUrl: require("..//images/Google.jpg"),
     companyValues: "commitment, teamwork, communication",
   },
   {
     companyName: "Microsoft",
-    pictureUrl: "..//images/Microsoft.png",
+    pictureUrl: require("..//images/Microsoft.png"),
     companyValues: "commitment, teamwork, communication",
   },
   {
     companyName: "Salesforce",
-    pictureUrl: "..//images/Salesforce.png",
+    pictureUrl: require("..//images/Salesforce.png"),
     companyValues: "commitment, teamwork, communication",
   },
   {
     companyName: "Tesla",
-    pictureUrl: "..//images/Tesla.png",
+    pictureUrl: require("..//images/Tesla.png"),
     companyValues: "commitment, teamwork, communication",
   },
   {
     companyName: "Uber",
-    pictureUrl: "..//images/Uber.png",
+    pictureUrl: require("..//images/Uber.jpg"),
     companyValues: "commitment, teamwork, communication",
   },
 ];
@@ -129,7 +129,7 @@ const HomePage = () => {
                   <CardMedia
                     component="img"
                     height="100"
-                    image={require("..//images/amazon-logo.png")}
+                    image={company.pictureUrl}
                     alt="amazon"
                   />
                   <CardContent>
