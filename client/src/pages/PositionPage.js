@@ -37,12 +37,12 @@ const PositionPage = () => {
   return (
     <Paper style={{ display: "flex", justifyContent: "center", padding: 20 }}>
       <div style={{ display: "flex", flexDirection: "column" }}>
-        <Grid container>
+        <Grid container rowSpacing={3} columnSpacing={3}>
           {samplePositions.map((position, index) => (
             <Grid item key={position[0]}>
               <Card
                 sx={{
-                  backgroundColor: hoverIndex === index ? "lightblue" : "white",
+                  backgroundColor: hoverIndex === index ? "green" : "white",
                   height: 50,
                   width: 300,
                   display: "flex",
@@ -69,6 +69,7 @@ const PositionPage = () => {
           variant="contained"
           color="primary"
           onClick={() => handlePositionSelect(positionValue)}
+          columnSpacing={3}
         >
           Submit
         </Button>

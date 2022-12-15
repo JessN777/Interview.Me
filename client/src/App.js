@@ -4,6 +4,7 @@ import QuestionsPage from "./pages/QuestionsPage";
 import InterviewPage from "./pages/InterviewPage";
 import NavBar from "./NavBar";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import FeedbackPage from "./pages/FeedbackPage";
 
 function App() {
   return (
@@ -15,6 +16,7 @@ function App() {
           <Route path="/position" element={<PositionPage />} />
           <Route path="/questions" element={<QuestionsPage />} />
           <Route path="/interview" element={<InterviewPage />} />
+          <Route path="/feedback" element={<FeedbackPage />} />
         </Routes>
       </Router>
     </div>
