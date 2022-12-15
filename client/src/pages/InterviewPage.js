@@ -1,13 +1,5 @@
 import React, { useState, useEffect } from "react";
-import {
-  Typography,
-  Grid,
-  Button,
-  Paper,
-  Box,
-  TextField,
-  InputAdornment,
-} from "@mui/material";
+import { Typography, Grid, Button, Paper, Box, TextField } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import MicIcon from "@mui/icons-material/Mic";
 import MicOffIcon from "@mui/icons-material/MicOff";
@@ -93,7 +85,9 @@ const InterviewPage = () => {
         alignItems="flex-start"
         padding="30px"
       >
-        <Typography variant="h4">Interview</Typography>
+        <Typography variant="h4" sx={{ fontWeight: "bold" }}>
+          Interview
+        </Typography>
         <Typography>
           Listen to the question asked. Use the speaker button to replay the
           interview question again. Use the microphone button to record you
@@ -102,6 +96,7 @@ const InterviewPage = () => {
         </Typography>
         <Box
           sx={{
+            marginTop: 5,
             display: "flex",
             width: "100%",
             height: 200,
@@ -122,59 +117,50 @@ const InterviewPage = () => {
           justifyContent="center"
           alignItems="center"
         >
-          <Button
-            onClick={() => {
-              console.log(prompt.message);
-            }}
-          >
-            Log Prompt
-          </Button>
           <TextField
+            sx={{ marginTop: 5 }}
+            label="Answer"
             value={answer}
             multiline
             fullWidth
             rows={4}
             variant="filled"
+            inputProps={{ min: 0, style: { textAlign: "center" } }}
             onChange={(e) => {
               setAnswer(e.target.value);
             }}
-            InputProps={{
-              endAdornment: (
-                <InputAdornment position="end">
-                  <Button onClick={handleSubmitAnswer}>
-                    <SendIcon />
-                  </Button>
-                  <Button
-                    width={0.6}
-                    onClick={() => setIsListening((prevState) => !prevState)}
-                  >
-                    {isListening ? (
-                      <>
-                        <Typography
-                          sx={{ color: "red", textTransform: "none" }}
-                        >
-                          Stop
-                        </Typography>
-                        <MicOffIcon sx={{ color: "red" }} />
-                      </>
-                    ) : (
-                      <>
-                        <Typography
-                          sx={{ color: "green", textTransform: "none" }}
-                        >
-                          Start
-                        </Typography>
-                        <MicIcon sx={{ color: "green" }} />
-                      </>
-                    )}
-                  </Button>
-                </InputAdornment>
-              ),
-              style: {
-                borderRadius: 4,
-              },
-            }}
           />
+          <Grid
+            sx={{ marginTop: 5 }}
+            width="20%"
+            container
+            direction="row"
+            justifyContent="space-around"
+            alignItems="center"
+          >
+            <Button
+              style={{
+                backgroundColor: "white",
+                borderRadius: "50%",
+                padding: "20px",
+                color: isListening ? "green" : "red",
+              }}
+              onClick={() => setIsListening((prevState) => !prevState)}
+            >
+              {isListening ? <MicIcon /> : <MicOffIcon />}
+            </Button>
+            <Button
+              style={{
+                backgroundColor: "white",
+                borderRadius: "50%",
+                padding: "20px",
+              }}
+              onClick={handleSubmitAnswer}
+            >
+              <SendIcon />
+            </Button>
+          </Grid>
+
           <Button onClick={() => navigate("/feedback")}>
             Finish interview
           </Button>
