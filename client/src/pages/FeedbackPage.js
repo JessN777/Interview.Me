@@ -30,7 +30,7 @@ const FeedbackPage = () => {
         Now it is time to understand how you can improve your responses.
       </Typography>
       <Typography variant="h6">Notes:</Typography>
-      <Avatar alt="Bryan Li" src="/images/Bryan Li.jpg">
+      <Avatar alt="Bryan Li" src="..//images/Bryan Li.jpg">
         {"Bryan Li"}
       </Avatar>
       <Typography>

@@ -30,17 +30,17 @@ const companyProfiles = [
   },
   {
     companyName: "Salesforce",
-    pictureUrl: require("..//images/Salesforce.png"),
+    pictureUrl: require("..//images/Salesforce.jpg"),
     companyValues: "commitment, teamwork, communication",
   },
   {
     companyName: "Tesla",
-    pictureUrl: require("..//images/Tesla.png"),
+    pictureUrl: require("..//images/Tesla-Logo.jpg"),
     companyValues: "commitment, teamwork, communication",
   },
   {
-    companyName: "Uber",
-    pictureUrl: require("..//images/Uber.jpg"),
+    companyName: "Uber Eats",
+    pictureUrl: require("..//images/Uber Eats.png"),
     companyValues: "commitment, teamwork, communication",
   },
 ];
@@ -72,6 +72,22 @@ const HomePage = () => {
   };
   return (
     <>
+      <Paper
+        sx={{
+          ml: 20,
+          mr: 20,
+          backgroundColor: "lightblue",
+          justifyItems: "center",
+        }}
+        elevation={0}
+      >
+        <Typography fontSize={60} align="center" variant="h6">
+          Interview.ME
+        </Typography>
+        <Typography align="center" variant="h6">
+          "Software to help you invest in your education"
+        </Typography>
+      </Paper>
       <Typography
         variant="h6"
         style={{
