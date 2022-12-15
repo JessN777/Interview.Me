@@ -42,7 +42,9 @@ const QuestionOutputSection = () => {
 
   return (
     <>
-      <Typography variant="h6">Interview</Typography>
+      <Typography align="left" variant="h6">
+        Interview
+      </Typography>
       <Typography>
         Listen to the question asked. Use the speaker button to replay the
         interview question again. Use the microphone button to record you

@@ -7,31 +7,55 @@ import {
   Typography,
   Grid,
   Button,
+  TextField,
 } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import { setGlobalState } from "../global";
 
 const samplePositions = [
-  ["Software Developer", "Placeholder Traits"],
-  ["Account Manager", "Placeholder Traits"],
-  ["Strategy Consultant", "Placeholder Traits"],
-  ["Barista", "Placeholder Traits"],
-  ["Partner", "Placeholder Traits"],
-  ["Business Analyst", "Placeholder Traits"],
-  ["Copywriter", "Placeholder Traits"],
-  ["Product Manager", "Placeholder Traits"],
-  ["HR Specialist", "Placeholder Traits"],
-  ["Talent Coordinator", "Placeholder Traits"],
+  { position: "Software Developer", description: "Placeholder Traits" },
+  { position: "Account Manager", description: "Placeholder Traits" },
+  { position: "Strategy Consultant", description: "Placeholder Traits" },
+  { position: "Barista", description: "Placeholder Traits" },
+  { position: "Partner", description: "Placeholder Traits" },
+  { position: "Business Analyst", description: "Placeholder Traits" },
+  { position: "Copywriter", description: "Placeholder Traits" },
+  { position: "Product Manager", description: "Placeholder Traits" },
+  { position: "HR Specialist", description: "Placeholder Traits" },
+  { position: "Talent Coordinator", description: "Placeholder Traits" },
+  { position: "Talent Recruiter", description: "Placeholder Traits" },
+  { position: "Investment Banker", description: "Placeholder Traits" },
 ];
 
 const PositionPage = () => {
   const navigate = useNavigate();
-  const handlePositionSelect = (position) => {
-    setGlobalState("companyPosition", position);
+  const [formValues, setFormValues] = useState({});
+
+  const handlepositionSelection = (position, description) => {
+    //There is a delay between setting and getting
+    setGlobalState("position", position);
+    setGlobalState("description", description);
     navigate("/questions");
   };
 
-  const [positionValue, setPositionValue] = useState(samplePositions[0][0]);
+  const handleFormChange = (e) => {
+    setFormValues({
+      ...formValues,
+      [e.target.name]: e.target.value,
+    });
+  };
+
+  const handleFormSubmit = () => {
+    setGlobalState("position", formValues.position);
+    setGlobalState("description", formValues.description);
+    navigate("/questions");
+
+    setFormValues({});
+  };
+
+  const [positionValue, setPositionValue] = useState(
+    samplePositions[0].position
+  );
   const [hoverIndex, setHoverIndex] = useState(0);
 
   return (
@@ -57,17 +81,21 @@ const PositionPage = () => {
           response. Press the microphone button again to stop recording your
           response.
         </Typography>
-        <Grid container rowSpacing={5} columnSpacing={5}>
-          {samplePositions.map((position, index) => (
+        <Grid container rowSpacing={5} columnSpacing={10}>
+          {samplePositions.map(({ position, description }, index) => (
             <Grid
               container
               alignItems="center"
               justify="center"
               item
+              key={position.position}
               xs={3}
-              key={position[0]}
+              onClick={() =>
+                handlepositionSelection(position.position, position.values)
+              }
             >
               <Card
+                align="center"
                 sx={{
                   backgroundColor: hoverIndex === index ? "green" : "white",
                   height: 100,
@@ -81,9 +109,15 @@ const PositionPage = () => {
                     setPositionValue(position[0]);
                     setHoverIndex(index);
                   }}
+                  onChange={handleFormChange}
                 >
                   <CardContent sx={{ flexGrow: 1 }}>
-                    <Typography gutterBottom variant="h5" component="h2">
+                    <Typography
+                      align="center"
+                      gutterBottom
+                      variant="h5"
+                      component="h2"
+                    >
                       {position[0]}
                     </Typography>
                   </CardContent>
@@ -92,10 +126,26 @@ const PositionPage = () => {
             </Grid>
           ))}
         </Grid>
+        <TextField
+          label="Position"
+          variant="outlined"
+          margin="normal"
+          name="position"
+          value={formValues.position || ""}
+          onChange={handleFormChange}
+        />
+        <TextField
+          label="Description"
+          variant="outlined"
+          margin="normal"
+          value={formValues.description || ""}
+          name="Rescription"
+          onChange={handleFormChange}
+        />
         <Button
           variant="contained"
           color="primary"
-          onClick={() => handlePositionSelect(positionValue)}
+          onClick={() => handleFormSubmit(positionValue)}
         >
           Submit
         </Button>

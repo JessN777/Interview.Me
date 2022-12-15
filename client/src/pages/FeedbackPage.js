@@ -7,6 +7,7 @@ import {
   Typography,
   Grid,
   Button,
+  Avatar,
 } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import { setGlobalState } from "../global";
@@ -27,6 +28,13 @@ const FeedbackPage = () => {
       <Typography variant="h6">Feedback</Typography>
       <Typography>
         Now it is time to understand how you can improve your responses.
+      </Typography>
+      <Typography variant="h6">Notes:</Typography>
+      <Avatar alt="Bryan Li" src="/images/Bryan Li.jpg">
+        {"Bryan Li"}
+      </Avatar>
+      <Typography>
+        This will be the spot where the feedback will be presented.
       </Typography>
 
       {/* Display feedback cards here */}
