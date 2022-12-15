@@ -33,8 +33,8 @@ const PositionPage = () => {
 
   const handlepositionSelection = (position, description) => {
     //There is a delay between setting and getting
-    setGlobalState("position", position);
-    setGlobalState("description", description);
+    setGlobalState("companyPosition", position);
+    // setGlobalState("description", description);
     navigate("/questions");
   };
 
@@ -82,7 +82,7 @@ const PositionPage = () => {
           response.
         </Typography>
         <Grid container rowSpacing={5} columnSpacing={10}>
-          {samplePositions.map(({ position, description }, index) => (
+          {samplePositions.map((position, index) => (
             <Grid
               container
               alignItems="center"
@@ -91,7 +91,7 @@ const PositionPage = () => {
               key={position.position}
               xs={3}
               onClick={() =>
-                handlepositionSelection(position.position, position.values)
+                handlepositionSelection(position.position, position.description)
               }
             >
               <Card
@@ -118,7 +118,7 @@ const PositionPage = () => {
                       variant="h5"
                       component="h2"
                     >
-                      {position[0]}
+                      {position.position}
                     </Typography>
                   </CardContent>
                 </CardActionArea>
