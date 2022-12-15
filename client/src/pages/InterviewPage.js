@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Typography, Grid, Button } from "@mui/material";
-import { useNavigate } from "react-router-dom";
+import { Navigate, useNavigate } from "react-router-dom";
 import { Container } from "@mui/system";
 import MicIcon from "@mui/icons-material/Mic";
 import MicOffIcon from "@mui/icons-material/MicOff";
@@ -136,11 +136,13 @@ const AudioInputSection = () => {
 };
 
 const InterviewPage = () => {
+  const navigate = useNavigate();
   return (
-    <>
+    <Container alignItems="center">
       <QuestionOutputSection />
       <AudioInputSection />
-    </>
+      <Button onClick={() => navigate("/feedback")}>Finish interview</Button>
+    </Container>
   );
 };
 
