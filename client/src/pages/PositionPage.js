@@ -35,15 +35,42 @@ const PositionPage = () => {
   const [hoverIndex, setHoverIndex] = useState(0);
 
   return (
-    <Paper style={{ display: "flex", justifyContent: "center", padding: 20 }}>
+    <Paper
+      elevation={0}
+      style={{ display: "flex", justifyContent: "center", padding: 0 }}
+    >
       <div style={{ display: "flex", flexDirection: "column" }}>
-        <Grid container rowSpacing={3} columnSpacing={3}>
+        <Typography
+          variant="h6"
+          style={{
+            flexGrow: 1,
+            textAlign: "left",
+            color: "black",
+            fontWeight: "bold",
+          }}
+        >
+          Interview
+        </Typography>
+        <Typography>
+          Listen to the question asked. Use the speaker button to replay the
+          interview question again. Use the microphone button to record you
+          response. Press the microphone button again to stop recording your
+          response.
+        </Typography>
+        <Grid container rowSpacing={5} columnSpacing={5}>
           {samplePositions.map((position, index) => (
-            <Grid item key={position[0]}>
+            <Grid
+              container
+              alignItems="center"
+              justify="center"
+              item
+              xs={3}
+              key={position[0]}
+            >
               <Card
                 sx={{
                   backgroundColor: hoverIndex === index ? "green" : "white",
-                  height: 50,
+                  height: 100,
                   width: 300,
                   display: "flex",
                   flexDirection: "column",
@@ -69,7 +96,6 @@ const PositionPage = () => {
           variant="contained"
           color="primary"
           onClick={() => handlePositionSelect(positionValue)}
-          columnSpacing={3}
         >
           Submit
         </Button>

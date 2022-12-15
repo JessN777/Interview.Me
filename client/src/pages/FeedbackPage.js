@@ -23,27 +23,9 @@ const FeedbackPage = () => {
   };
 
   return (
-    <Paper>
-      <Typography
-        variant="h6"
-        style={{
-          flexGrow: 1,
-          textAlign: "left",
-          color: "black",
-          fontWeight: "bold",
-        }}
-      >
-        Feedback
-      </Typography>
-      <Typography
-        variant="h6"
-        style={{
-          flexGrow: 1,
-          textAlign: "left",
-          color: "black",
-          fontWeight: "bold",
-        }}
-      >
+    <Paper elevation={0}>
+      <Typography variant="h6">Feedback</Typography>
+      <Typography>
         Now it is time to understand how you can improve your responses.
       </Typography>
 
