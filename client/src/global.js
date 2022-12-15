@@ -18,7 +18,7 @@ async function postGptCommand(prompt, callback) {
       prompt: prompt,
     })
     .then((response) => {
-      console.log(prompt["message"]);
+      console.log(`Prompt: ${prompt["message"]}`);
       console.log(response.data.choices[0].text);
       callback(response.data.choices[0].text);
       return response;

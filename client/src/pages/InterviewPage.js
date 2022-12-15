@@ -1,10 +1,18 @@
 import React, { useState, useEffect } from "react";
-import { Typography, Grid, Button } from "@mui/material";
+import {
+  Typography,
+  Grid,
+  Button,
+  Paper,
+  Box,
+  TextField,
+  InputAdornment,
+} from "@mui/material";
 import { useNavigate } from "react-router-dom";
-import { Container } from "@mui/system";
 import MicIcon from "@mui/icons-material/Mic";
 import MicOffIcon from "@mui/icons-material/MicOff";
 import { useGlobalState, postGptCommand } from "../global";
+import SendIcon from "@mui/icons-material/Send";
 
 const SpeechRecognition =
   window.SpeechRecognition || window.webkitSpeechRecognition;
@@ -20,30 +28,29 @@ const InterviewPage = () => {
   const [companyName] = useGlobalState("companyName");
   const [companyPosition] = useGlobalState("companyPosition");
   const [companyValues] = useGlobalState("companyValues");
+  const [isListening, setIsListening] = useState(false);
+  const [answer, setAnswer] = useState("");
+  const [prompt, setPrompt] = useState({
+    message: `You are an interviewer named 'InterviewBot' interviewing an applicant applying for a job at ${companyName}. Through your questions you want to assess whether the candidate possess ${companyValues} and is suitable for a ${companyPosition} position at ${companyName}. The conversation starts with the user greeting you. Once the user has provided a response to your question, you should return with a question of your own. Do not add on to the user's response.\n Hi InterviewBot great to be interviewing with you today!. \nInterviewBot:`,
+  });
 
-  const handleQuestionCall = () => {
-    const prompt = {
-      message: `You are an interviewer named 'InterviewBot' interviewing an applicant applying for a job at ${companyName}. Through your questions you want to assess whether the candidate possess ${companyValues} and is suitable for a ${companyPosition} position at ${companyName}. The conversation starts with the user greeting you. Once the user has provided a response to your question, you should return with a question of your own. Do not add on to the user's response.
-    You: Thank you for taking the time to interview me, InterviewBot!"`,
-    };
-    postGptCommand(prompt, setGptOutput);
+  const handleSubmitAnswer = () => {
+    setPrompt({
+      message:
+        prompt.message + `${gptOutput} \nYou: ${answer} \nInterviewBot:   `,
+    });
+    console.log(prompt);
+    // postGptCommand(prompt, setGptOutput);
   };
 
-  //Audio functions
-
-  const [isListening, setIsListening] = useState(false);
-  const [answer, setAnswer] = useState(null);
+  useEffect(() => {
+    console.log("Prompt updated");
+    postGptCommand(prompt, setGptOutput);
+  }, [prompt]);
 
   useEffect(() => {
     handleListen();
   }, [isListening]);
-
-  const handleSubmitAnswer = () => {
-    const prompt = {
-      message: `${answer}`,
-    };
-    postGptCommand(prompt, setGptOutput);
-  };
 
   const handleListen = () => {
     if (isListening) {
@@ -70,52 +77,110 @@ const InterviewPage = () => {
   };
 
   return (
-    <Container alignItems="center">
-      <>
-        <Typography align="left" variant="h6">
-          Interview
-        </Typography>
+    <Paper
+      sx={{
+        ml: 15,
+        mr: 15,
+        backgroundColor: "lightblue",
+        display: "flex",
+        justifyItems: "center",
+      }}
+    >
+      <Grid
+        container
+        direction="column"
+        justifyContent="center"
+        alignItems="flex-start"
+        padding="30px"
+      >
+        <Typography variant="h4">Interview</Typography>
         <Typography>
           Listen to the question asked. Use the speaker button to replay the
           interview question again. Use the microphone button to record you
           response. Press the microphone button again to stop recording your
-          response.
+          response. The response will appear below:
         </Typography>
-        <Typography>This is where the questions will output:</Typography>
-        <Typography>{gptOutput}</Typography>
-        <Button onClick={handleQuestionCall}>
-          This is a placeholder button to trigger the api call
-        </Button>
-      </>
-      <Container>
-        <Grid container direction="column">
-          <Typography variant="h6">Current answer</Typography>
-          <Typography variant="h7">{answer}</Typography>
+        <Box
+          sx={{
+            display: "flex",
+            width: "100%",
+            height: 200,
+            backgroundColor: "white",
+            alignSelf: "center",
+            alignItems: "center",
+            justifyContent: "center",
+            borderRadius: 3,
+          }}
+        >
+          <Typography sx={{ fontWeight: "bold" }}>{gptOutput}</Typography>
+        </Box>
+
+        <Grid
+          sx={{ pl: 15, pr: 15 }}
+          container
+          direction="column"
+          justifyContent="center"
+          alignItems="center"
+        >
           <Button
-            width={0.6}
-            onClick={() => setIsListening((prevState) => !prevState)}
+            onClick={() => {
+              console.log(prompt.message);
+            }}
           >
-            {isListening ? (
-              <>
-                <Typography sx={{ color: "red", textTransform: "none" }}>
-                  Stop
-                </Typography>
-                <MicOffIcon sx={{ color: "red" }} />
-              </>
-            ) : (
-              <>
-                <Typography sx={{ color: "green", textTransform: "none" }}>
-                  Start
-                </Typography>
-                <MicIcon sx={{ color: "green" }} />
-              </>
-            )}
+            Log Prompt
           </Button>
-          <Button onClick={handleSubmitAnswer}>Submit Answer</Button>
+          <TextField
+            value={answer}
+            multiline
+            fullWidth
+            rows={4}
+            variant="filled"
+            onChange={(e) => {
+              setAnswer(e.target.value);
+            }}
+            InputProps={{
+              endAdornment: (
+                <InputAdornment position="end">
+                  <Button onClick={handleSubmitAnswer}>
+                    <SendIcon />
+                  </Button>
+                  <Button
+                    width={0.6}
+                    onClick={() => setIsListening((prevState) => !prevState)}
+                  >
+                    {isListening ? (
+                      <>
+                        <Typography
+                          sx={{ color: "red", textTransform: "none" }}
+                        >
+                          Stop
+                        </Typography>
+                        <MicOffIcon sx={{ color: "red" }} />
+                      </>
+                    ) : (
+                      <>
+                        <Typography
+                          sx={{ color: "green", textTransform: "none" }}
+                        >
+                          Start
+                        </Typography>
+                        <MicIcon sx={{ color: "green" }} />
+                      </>
+                    )}
+                  </Button>
+                </InputAdornment>
+              ),
+              style: {
+                borderRadius: 4,
+              },
+            }}
+          />
+          <Button onClick={() => navigate("/feedback")}>
+            Finish interview
+          </Button>
         </Grid>
-      </Container>
-      <Button onClick={() => navigate("/feedback")}>Finish interview</Button>
-    </Container>
+      </Grid>
+    </Paper>
   );
 };
 
