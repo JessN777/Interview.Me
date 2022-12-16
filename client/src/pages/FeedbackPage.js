@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   Paper,
   Card,
@@ -9,32 +9,68 @@ import {
   Button,
   Avatar,
   Box,
+  List,
+  ListItem,
+  ListItemAvatar,
+  ListItemText,
+  Divider,
 } from "@mui/material";
 import { useNavigate } from "react-router-dom";
-import { useGlobalState, postGptCommand } from "../global";
-import { setGlobalState } from "../global";
+import { useGlobalState, setGlobalState, postGptFeedback } from "../global";
 
 const FeedbackPage = () => {
   const navigate = useNavigate();
-
-  // Initialize the state with an empty array
-  const [feedback, setFeedback] = useState([]);
+  const results = useGlobalState("results");
+  const [gptOutput, setGptOutput] = useState("Waiting for feedback");
+  const [prompt, setPrompt] = useState({ message: "" });
+  const test = results[0];
+  console.log(test);
 
   // Function to handle navigating to the home page
   const handleNavigateToHome = () => {
     navigate("/");
   };
 
-  const gptOutput1 = "Good things to take from the interview";
-  const gptOutput2 = "Things you should improve on";
+  const handleSubmit = () => {
+    const exchangeList = [];
+    for (var i = 1, len = test.length; i < len; i++) {
+      exchangeList.push(test[i].sentence);
+    }
+    exchangeList.pop();
+    setPrompt({
+      message: `With regard to the interview question of ${exchangeList[0]}, I answered by saying ${exchangeList[1]}. Do you have any tips for improving my answer?`,
+    });
+
+    for (var i = 0, len = exchangeList.length; i < len; i += 2) {
+      setPrompt({
+        message: `With regard to the interview question of ${
+          exchangeList[i]
+        }, I answered by saying ${
+          exchangeList[i + 1]
+        }. Do you have any tips for improving my answer?`,
+      });
+    }
+
+    console.log(exchangeList);
+    console.log(exchangeList[2]);
+  };
+
+  useEffect(() => {
+    console.log("Prompt updated");
+    postGptFeedback(prompt, setGptOutput);
+  }, [prompt]);
 
   return (
     <Paper elevation={0}>
       <Typography variant="h6" style={{ textAlign: "center" }}>
         Feedback
       </Typography>
-      <Typography style={{ textAlign: "center" }}>
+      <Button onClick={() => console.log(typeof results)}>
+        Click me for results
+      </Button>
+      <Typography style={{ textAlign: "center " }}>
         Now it is time to understand how you can improve your responses.
+        {results[0].sentence}
       </Typography>
       <Typography variant="h6">Notes:</Typography>
       <Avatar alt="Bryan Li" src="/images/Bryan Li.jpg">
@@ -45,6 +81,7 @@ const FeedbackPage = () => {
       </Typography>
 
       {/* Display the boxes side by side */}
+      <Button onClick={handleSubmit}>Print ExchangeList</Button>
       <Box
         sx={{
           marginTop: 5,
@@ -60,37 +97,110 @@ const FeedbackPage = () => {
         {/* Display the first box */}
         <Box
           sx={{
-            width: "50%",
-            height: "100%",
-            backgroundColor: "white",
-            alignSelf: "center",
+            width: "30%",
+            height: 600,
+            backgroundColor: "lightblue",
+            alignSelf: "start",
             alignItems: "center",
             justifyContent: "center",
+            marginRight: 10,
+            padding: 2,
             borderRadius: 3,
-            borderColor: "black",
+            borderColor: "gray",
             borderWidth: 2,
             borderStyle: "solid",
           }}
         >
-          <Typography sx={{ fontWeight: "bold" }}>{gptOutput1}</Typography>
+          <Typography variant="h6" sx={{ fontWeight: "bold" }}>
+            What was said during the interview:
+          </Typography>
+          <List
+            sx={{ width: "100%", bgcolor: "background.paper", borderRadius: 3 }}
+          >
+            {test.map((output, index) => {
+              return (
+                <>
+                  <ListItem alignItems="flex-start">
+                    <ListItemAvatar>
+                      <Avatar
+                        alt={output.speaker}
+                        src="/static/images/avatar/1.jpg"
+                      />
+                    </ListItemAvatar>
+                    <ListItemText
+                      primary={index % 2 === 0 ? "Question" : "Answer"}
+                      secondary={
+                        <React.Fragment>
+                          <Typography
+                            sx={{ display: "inline" }}
+                            component="span"
+                            variant="body2"
+                            color="text.primary"
+                          >
+                            {`${output.speaker}: `}
+                          </Typography>
+                          {output.sentence}
+                        </React.Fragment>
+                      }
+                    />
+                  </ListItem>
+                  <Divider variant="inset" component="li" />
+                </>
+              );
+            })}
+          </List>
         </Box>
 
         {/* Display the second box */}
         <Box
           sx={{
-            width: "50%",
-            height: "100%",
-            backgroundColor: "white",
-            alignSelf: "center",
+            width: "30%",
+            height: 600,
+            backgroundColor: "lightblue",
+            alignSelf: "start",
             alignItems: "center",
             justifyContent: "center",
+            marginRight: 10,
+            padding: 2,
             borderRadius: 3,
-            borderColor: "black",
+            borderColor: "gray",
             borderWidth: 2,
             borderStyle: "solid",
           }}
         >
-          <Typography sx={{ fontWeight: "bold" }}>{gptOutput2}</Typography>
+          <Typography variant="h6" sx={{ fontWeight: "bold" }}>
+            Interview Feedback:
+          </Typography>
+          <Typography>{gptOutput}</Typography>
+          {/* <List
+            sx={{ width: "100%", bgcolor: "background.paper", borderRadius: 3 }}
+          >
+            {test.map((output, index) => {
+              return (
+                <>
+                  <ListItem alignItems="flex-start">
+                    <ListItemText
+                      primary="Feedback"
+                      secondary={
+                        <React.Fragment>
+                          <Typography
+                            sx={{ display: "inline" }}
+                            component="span"
+                            variant="body2"
+                            color="text.primary"
+                          >
+                            {`${output.speaker}: `}
+                          </Typography>
+                          {output.sentence}
+                        </React.Fragment>
+                      }
+                    />
+                  </ListItem>
+                  <Divider variant="inset" component="li" />
+                </>
+              );
+            })}
+          </List> */}
         </Box>
       </Box>
     </Paper>

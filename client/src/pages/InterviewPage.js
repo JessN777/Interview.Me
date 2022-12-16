@@ -3,7 +3,7 @@ import { Typography, Grid, Button, Paper, Box, TextField } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import MicIcon from "@mui/icons-material/Mic";
 import MicOffIcon from "@mui/icons-material/MicOff";
-import { useGlobalState, postGptCommand } from "../global";
+import { useGlobalState, postGptQuestion, setGlobalState } from "../global";
 import SendIcon from "@mui/icons-material/Send";
 
 const SpeechRecognition =
@@ -23,21 +23,20 @@ const InterviewPage = () => {
   const [isListening, setIsListening] = useState(false);
   const [answer, setAnswer] = useState("");
   const [prompt, setPrompt] = useState({
-    message: `You are an interviewer named 'InterviewBot' interviewing an applicant applying for a job at ${companyName}. Through your questions you want to assess whether the candidate possess ${companyValues} and is suitable for a ${companyPosition} position at ${companyName}. The conversation starts with the user greeting you. Once the user has provided a response to your question, you should return with a question of your own. Do not add on to the user's response.\n Hi InterviewBot great to be interviewing with you today!. \nInterviewBot:`,
+    message: `You are an interviewer named 'InterviewBot' interviewing an applicant applying for a job at ${companyName}. Through your questions you want to assess whether the candidate possess ${companyValues} and is suitable for a ${companyPosition} position at ${companyName}. The conversation starts with the user greeting you. Once the user has provided a response to your question, you should return with a question of your own. Do not add on to the user's response.\n You: Hi InterviewBot great to be interviewing with you today!. \nInterviewBot:`,
   });
 
   const handleSubmitAnswer = () => {
     setPrompt({
       message:
-        prompt.message + `${gptOutput} \nYou: ${answer} \nInterviewBot:   `,
+        prompt.message + `${gptOutput} \nYou: ${answer} \nInterviewBot: `,
     });
     console.log(prompt);
-    // postGptCommand(prompt, setGptOutput);
   };
 
   useEffect(() => {
     console.log("Prompt updated");
-    postGptCommand(prompt, setGptOutput);
+    postGptQuestion(prompt, setGptOutput);
   }, [prompt]);
 
   useEffect(() => {
@@ -66,6 +65,17 @@ const InterviewPage = () => {
         console.log(event.error);
       };
     };
+  };
+
+  const handleFinishInterview = () => {
+    const dialogue = [];
+    const regex = /(InterviewBot|You): (.*)/g;
+    let match;
+    while ((match = regex.exec(prompt.message))) {
+      dialogue.push({ speaker: match[1], sentence: match[2] });
+    }
+    setGlobalState("results", dialogue);
+    navigate("/feedback");
   };
 
   return (
@@ -119,7 +129,6 @@ const InterviewPage = () => {
           >
             <Typography sx={{ fontWeight: "bold" }}>{gptOutput}</Typography>
           </Box>
-
           <Grid
             sx={{ pl: 15, pr: 15 }}
             container
@@ -176,7 +185,7 @@ const InterviewPage = () => {
               color="primary"
               position="absolute"
               bottom={0}
-              onClick={() => navigate("/feedback")}
+              onClick={handleFinishInterview}
             >
               Finish interview
             </Button>

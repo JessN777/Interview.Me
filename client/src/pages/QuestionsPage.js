@@ -25,7 +25,7 @@ const QuestionsPage = () => {
       formValues["Question2"],
       formValues["Question3"],
     ];
-    setGlobalState("questions", questions);
+    // setGlobalState("questions", questions);
 
     navigate("/interview");
     setFormValues({});

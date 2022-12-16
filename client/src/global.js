@@ -5,14 +5,14 @@ const { setGlobalState, useGlobalState } = createGlobalState({
   companyName: "your company",
   companyPosition: "employee",
   companyValues: "friendly",
-  questions: [],
+  results: [],
 });
 
 const axiosinstance = axios.create({
   baseURL: "http://localhost:5000",
 });
 
-async function postGptCommand(prompt, callback) {
+async function postGptQuestion(prompt, callback) {
   await axiosinstance
     .post("/create_question", {
       prompt: prompt,
@@ -28,4 +28,19 @@ async function postGptCommand(prompt, callback) {
     });
 }
 
-export { useGlobalState, setGlobalState, postGptCommand };
+async function postGptFeedback(prompt, callback) {
+  await axiosinstance
+    .post("/create_feedback", {
+      prompt: prompt,
+    })
+    .then((response) => {
+      console.log(`Prompt: ${prompt["message"]}`);
+      console.log(response.data.choices[0].text);
+      callback(response.data.choices[0].text);
+      return response;
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+}
+export { useGlobalState, setGlobalState, postGptQuestion, postGptFeedback };
