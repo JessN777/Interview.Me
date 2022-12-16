@@ -3,10 +3,10 @@
 OpenAI Hackathon Project built by: James, Jessica and Brian
 
 ## What it does
-Insert your company, position and practice questions and Interview.ME will help provide you with feedback on how to improve your responses.
+Insert your company, position and practice questions in a matter of secounds. Then Interview.ME will help listen to your responses and provide you with necessary feedback on how to strengthen your answers.
 
 ## How we built it
-We have stored data on various F500 companies and common job positions so that when you select the company you are interviewing at and the type of role, our UI sends the info to our backend where we use Codex and Whisper to generate feedback to better strengthen your answers.
+We have stored data on various F500 companies and common job positions. When you select the company you are interviewing at and the type of role, our UI sends the data we have saved to our backend. Next, you input the questions you want to practice and we send that prompt to our backend for our AI. We then take you through an online interview which allows Interview.ME to parse through your responses and generate feedback to better strengthen your answers.
 
 ## Acomplishments we are proud of
 - It was a first project for some of the team members
