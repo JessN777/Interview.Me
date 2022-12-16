@@ -97,96 +97,117 @@ const PositionPage = () => {
   const [hoverIndex, setHoverIndex] = useState(0);
 
   return (
-    <Paper
-      elevation={0}
-      style={{ display: "flex", justifyContent: "center", padding: 0 }}
-    >
-      <div style={{ display: "flex", flexDirection: "column" }}>
-        <Typography
-          variant="h6"
-          style={{
-            flexGrow: 1,
-            textAlign: "left",
-            color: "black",
-            fontWeight: "bold",
-          }}
-        >
-          What Type Of Role Are You Applying To?
+    <>
+      <Paper
+        sx={{
+          ml: 20,
+          mr: 20,
+          backgroundColor: "lightblue",
+          justifyItems: "center",
+        }}
+        elevation={0}
+      >
+        <Typography fontSize={60} align="center" variant="h6">
+          Interview.ME
         </Typography>
-        <Typography>
-          Help us better understand how we can cater our feedback based on the
-          type of role you are interviewing for.
+        <Typography align="center" variant="h6">
+          "Software to help you invest in your education"
         </Typography>
-        <Grid container rowSpacing={5} columnSpacing={10}>
-          {samplePositions.map((position, index) => (
-            <Grid
-              container
-              alignItems="center"
-              justify="center"
-              item
-              key={position.position}
-              xs={3}
-              onClick={() =>
-                handlepositionSelection(position.position, position.description)
-              }
-            >
-              <Card
-                align="center"
-                sx={{
-                  backgroundColor: hoverIndex === index ? "green" : "white",
-                  height: 100,
-                  width: 300,
-                  display: "flex",
-                  flexDirection: "column",
-                }}
+      </Paper>
+      <Paper
+        elevation={0}
+        style={{ display: "flex", justifyContent: "center", padding: 0 }}
+      >
+        <div style={{ display: "flex", flexDirection: "column" }}>
+          <Typography
+            variant="h6"
+            style={{
+              flexGrow: 1,
+              textAlign: "left",
+              color: "black",
+              fontWeight: "bold",
+            }}
+          >
+            What Type Of Role Are You Applying To?
+          </Typography>
+          <Typography>
+            Help us better understand how we can cater our feedback based on the
+            type of role you are interviewing for.
+          </Typography>
+          <Grid container rowSpacing={5} columnSpacing={10}>
+            {samplePositions.map((position, index) => (
+              <Grid
+                container
+                alignItems="center"
+                justify="center"
+                item
+                key={position.position}
+                xs={3}
+                onClick={() =>
+                  handlepositionSelection(
+                    position.position,
+                    position.description
+                  )
+                }
               >
-                <CardActionArea
-                  onClick={() => {
-                    setPositionValue(position[0]);
-                    setHoverIndex(index);
+                <Card
+                  align="center"
+                  sx={{
+                    backgroundColor: hoverIndex === index ? "green" : "white",
+                    height: 100,
+                    width: 300,
+                    display: "flex",
+                    flexDirection: "column",
                   }}
-                  onChange={handleFormChange}
                 >
-                  <CardContent sx={{ flexGrow: 1 }}>
-                    <Typography
-                      align="center"
-                      gutterBottom
-                      variant="h5"
-                      component="h2"
-                    >
-                      {position.position}
-                    </Typography>
-                  </CardContent>
-                </CardActionArea>
-              </Card>
-            </Grid>
-          ))}
-        </Grid>
-        <TextField
-          label="Position"
-          variant="outlined"
-          margin="normal"
-          name="position"
-          value={formValues.position || ""}
-          onChange={handleFormChange}
-        />
-        <TextField
-          label="Description"
-          variant="outlined"
-          margin="normal"
-          value={formValues.description || ""}
-          name="Rescription"
-          onChange={handleFormChange}
-        />
-        <Button
-          variant="contained"
-          color="primary"
-          onClick={() => handleFormSubmit(positionValue)}
-        >
-          Submit
-        </Button>
-      </div>
-    </Paper>
+                  <CardActionArea
+                    onClick={() => {
+                      setPositionValue(position[0]);
+                      setHoverIndex(index);
+                    }}
+                    onChange={handleFormChange}
+                  >
+                    <CardContent sx={{ flexGrow: 1 }}>
+                      <Typography
+                        align="center"
+                        gutterBottom
+                        variant="h5"
+                        component="h2"
+                      >
+                        {position.position}
+                      </Typography>
+                    </CardContent>
+                  </CardActionArea>
+                </Card>
+              </Grid>
+            ))}
+          </Grid>
+          <TextField
+            label="Position"
+            variant="outlined"
+            margin="normal"
+            name="position"
+            value={formValues.position || ""}
+            onChange={handleFormChange}
+          />
+          <TextField
+            label="Description"
+            variant="outlined"
+            margin="normal"
+            value={formValues.description || ""}
+            name="Rescription"
+            onChange={handleFormChange}
+          />
+          <Button
+            variant="contained"
+            color="primary"
+            onClick={() => handleFormSubmit(positionValue)}
+          >
+            Submit
+          </Button>
+        </div>
+      </Paper>
+    </>
   );
 };
 

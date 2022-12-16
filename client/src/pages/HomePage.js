@@ -164,6 +164,8 @@ const HomePage = () => {
             variant="contained"
             color="primary"
             onClick={handleFormSubmit}
+            position="absolute"
+            bottom={0}
           >
             Submit
           </Button>

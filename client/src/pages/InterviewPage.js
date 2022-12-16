@@ -69,105 +69,115 @@ const InterviewPage = () => {
   };
 
   return (
-    <Paper
-      sx={{
-        ml: 15,
-        mr: 15,
-        backgroundColor: "lightblue",
-        display: "flex",
-        justifyItems: "center",
-      }}
-    >
-      <Grid
-        container
-        direction="column"
-        justifyContent="center"
-        alignItems="flex-start"
-        padding="30px"
+    <>
+      <Paper
+        sx={{
+          ml: 20,
+          mr: 20,
+          backgroundColor: "lightblue",
+          justifyItems: "center",
+        }}
+        elevation={0}
       >
-        <Typography variant="h4" sx={{ fontWeight: "bold" }}>
-          Interview
+        <Typography fontSize={60} align="center" variant="h6">
+          Interview.ME
         </Typography>
-        <Typography>
-          Listen to the question asked. Use the speaker button to replay the
-          interview question again. Use the microphone button to record you
-          response. Press the microphone button again to stop recording your
-          response. Once you are satisfied with your response, press the send
-          button to upload your answer. The response will appear below:
+        <Typography align="center" variant="h6">
+          "Software to help you invest in your education"
         </Typography>
-        <Box
-          sx={{
-            marginTop: 5,
-            display: "flex",
-            width: "100%",
-            height: 200,
-            backgroundColor: "white",
-            alignSelf: "center",
-            alignItems: "center",
-            justifyContent: "center",
-            borderRadius: 3,
-          }}
-        >
-          <Typography sx={{ fontWeight: "bold" }}>{gptOutput}</Typography>
-        </Box>
-
+      </Paper>
+      <Typography variant="h6" sx={{ fontWeight: "bold" }}>
+        Interview
+      </Typography>
+      <Typography>
+        Listen to the question asked. Use the speaker button to replay the
+        interview question again. Use the microphone button to record you
+        response. Press the microphone button again to stop recording your
+        response. Once you are satisfied with your response, press the send
+        button to upload your answer. The response will appear below:
+      </Typography>
+      <>
         <Grid
-          sx={{ pl: 15, pr: 15 }}
           container
           direction="column"
           justifyContent="center"
-          alignItems="center"
+          alignItems="flex-start"
+          padding="30px"
         >
-          <TextField
-            sx={{ marginTop: 5 }}
-            label="Answer"
-            value={answer}
-            multiline
-            fullWidth
-            rows={4}
-            variant="filled"
-            inputProps={{ min: 0, style: { textAlign: "center" } }}
-            onChange={(e) => {
-              setAnswer(e.target.value);
+          <Box
+            sx={{
+              marginTop: 5,
+              display: "flex",
+              width: "100%",
+              height: 200,
+              backgroundColor: "white",
+              alignSelf: "center",
+              alignItems: "center",
+              justifyContent: "center",
+              borderRadius: 3,
             }}
-          />
+          >
+            <Typography sx={{ fontWeight: "bold" }}>{gptOutput}</Typography>
+          </Box>
+
           <Grid
-            sx={{ marginTop: 5 }}
-            width="20%"
+            sx={{ pl: 15, pr: 15 }}
             container
-            direction="row"
-            justifyContent="space-around"
+            direction="column"
+            justifyContent="center"
             alignItems="center"
           >
-            <Button
-              style={{
-                backgroundColor: "white",
-                borderRadius: "50%",
-                padding: "20px",
-                color: isListening ? "green" : "red",
+            <TextField
+              sx={{ marginTop: 5 }}
+              label="Answer"
+              value={answer}
+              multiline
+              fullWidth
+              rows={4}
+              variant="filled"
+              inputProps={{ min: 0, style: { textAlign: "center" } }}
+              onChange={(e) => {
+                setAnswer(e.target.value);
               }}
-              onClick={() => setIsListening((prevState) => !prevState)}
+            />
+            <Grid
+              sx={{ marginTop: 5 }}
+              width="20%"
+              container
+              direction="row"
+              justifyContent="space-around"
+              alignItems="center"
             >
-              {isListening ? <MicIcon /> : <MicOffIcon />}
-            </Button>
-            <Button
-              style={{
-                backgroundColor: "white",
-                borderRadius: "50%",
-                padding: "20px",
-              }}
-              onClick={handleSubmitAnswer}
-            >
-              <SendIcon />
+              <Button
+                style={{
+                  backgroundColor: "white",
+                  borderRadius: "50%",
+                  padding: "20px",
+                  color: isListening ? "green" : "red",
+                }}
+                onClick={() => setIsListening((prevState) => !prevState)}
+              >
+                {isListening ? <MicIcon /> : <MicOffIcon />}
+              </Button>
+              <Button
+                style={{
+                  backgroundColor: "white",
+                  borderRadius: "50%",
+                  padding: "20px",
+                }}
+                onClick={handleSubmitAnswer}
+              >
+                <SendIcon />
+              </Button>
+            </Grid>
+
+            <Button onClick={() => navigate("/feedback")}>
+              Finish interview
             </Button>
           </Grid>
-
-          <Button onClick={() => navigate("/feedback")}>
-            Finish interview
-          </Button>
         </Grid>
-      </Grid>
-    </Paper>
+      </>
+    </>
   );
 };
 
