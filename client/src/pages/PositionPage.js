@@ -114,27 +114,27 @@ const PositionPage = () => {
           "Software to help you invest in your education"
         </Typography>
       </Paper>
+      <Typography
+        variant="h6"
+        style={{
+          flexGrow: 1,
+          textAlign: "left",
+          color: "black",
+          fontWeight: "bold",
+        }}
+      >
+        What Type Of Role Are You Applying To?
+      </Typography>
+      <Typography>
+        Help us better understand how we can cater our feedback based on the
+        type of role you are interviewing for.
+      </Typography>
       <Paper
         elevation={0}
         style={{ display: "flex", justifyContent: "center", padding: 0 }}
       >
         <div style={{ display: "flex", flexDirection: "column" }}>
-          <Typography
-            variant="h6"
-            style={{
-              flexGrow: 1,
-              textAlign: "left",
-              color: "black",
-              fontWeight: "bold",
-            }}
-          >
-            What Type Of Role Are You Applying To?
-          </Typography>
-          <Typography>
-            Help us better understand how we can cater our feedback based on the
-            type of role you are interviewing for.
-          </Typography>
-          <Grid container rowSpacing={5} columnSpacing={10}>
+          <Grid width={"1000px"} container rowSpacing={5} columnSpacing={10}>
             {samplePositions.map((position, index) => (
               <Grid
                 container
@@ -169,6 +169,7 @@ const PositionPage = () => {
                   >
                     <CardContent sx={{ flexGrow: 1 }}>
                       <Typography
+                        elevation={3}
                         align="center"
                         gutterBottom
                         variant="h5"

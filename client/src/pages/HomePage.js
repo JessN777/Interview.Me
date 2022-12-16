@@ -43,6 +43,16 @@ const companyProfiles = [
     pictureUrl: require("..//images/Uber Eats.png"),
     companyValues: "commitment, teamwork, communication",
   },
+  {
+    companyName: "Netflix",
+    pictureUrl: require("..//images/Netflix.png"),
+    companyValues: "commitment, teamwork, communication",
+  },
+  {
+    companyName: "Apple",
+    pictureUrl: require("..//images/Apple.png"),
+    companyValues: "commitment, teamwork, communication",
+  },
 ];
 
 const HomePage = () => {
@@ -80,6 +90,7 @@ const HomePage = () => {
           justifyItems: "center",
         }}
         elevation={0}
+        paddingBottom={"10px"}
       >
         <Typography fontSize={60} align="center" variant="h6">
           Interview.ME
@@ -126,7 +137,7 @@ const HomePage = () => {
                     )
                   }
                 >
-                  <Card sx={{ minWidth: 345, maxWidth: 345 }}>
+                  <Card elevation={3} sx={{ minWidth: 350, maxWidth: 350 }}>
                     <CardMedia
                       component="img"
                       height="100"

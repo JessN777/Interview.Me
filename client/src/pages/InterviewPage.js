@@ -171,7 +171,13 @@ const InterviewPage = () => {
               </Button>
             </Grid>
 
-            <Button onClick={() => navigate("/feedback")}>
+            <Button
+              variant="contained"
+              color="primary"
+              position="absolute"
+              bottom={0}
+              onClick={() => navigate("/feedback")}
+            >
               Finish interview
             </Button>
           </Grid>
