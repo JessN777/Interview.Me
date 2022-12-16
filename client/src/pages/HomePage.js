@@ -133,11 +133,6 @@ const HomePage = () => {
                       image={company.pictureUrl}
                       alt="amazon"
                     />
-                    <CardContent>
-                      <Typography gutterBottom variant="h5" component="div">
-                        {company.companyName}
-                      </Typography>
-                    </CardContent>
                   </Card>
                 </Button>
               </Grid>
