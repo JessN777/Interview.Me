@@ -73,7 +73,7 @@ const PositionPage = () => {
     //There is a delay between setting and getting
     setGlobalState("companyPosition", position);
     // setGlobalState("description", description);
-    navigate("/questions");
+    navigate("/interview");
   };
 
   const handleFormChange = (e) => {
@@ -86,7 +86,7 @@ const PositionPage = () => {
   const handleFormSubmit = () => {
     setGlobalState("position", formValues.position);
     setGlobalState("description", formValues.description);
-    navigate("/questions");
+    navigate("/interview");
 
     setFormValues({});
   };
@@ -98,22 +98,6 @@ const PositionPage = () => {
 
   return (
     <>
-      <Paper
-        sx={{
-          ml: 20,
-          mr: 20,
-          backgroundColor: "lightblue",
-          justifyItems: "center",
-        }}
-        elevation={0}
-      >
-        <Typography fontSize={60} align="center" variant="h6">
-          Interview.ME
-        </Typography>
-        <Typography align="center" variant="h6">
-          "Software to help you invest in your education"
-        </Typography>
-      </Paper>
       <Typography
         variant="h6"
         style={{

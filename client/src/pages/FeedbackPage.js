@@ -1,11 +1,7 @@
 import React, { useState, useEffect } from "react";
 import {
   Paper,
-  Card,
-  CardActionArea,
-  CardContent,
   Typography,
-  Grid,
   Button,
   Avatar,
   Box,
@@ -14,75 +10,82 @@ import {
   ListItemAvatar,
   ListItemText,
   Divider,
+  Grid,
 } from "@mui/material";
 import { useNavigate } from "react-router-dom";
-import { useGlobalState, setGlobalState, postGptFeedback } from "../global";
+import { useGlobalState, postGptFeedback } from "../global";
 
 const FeedbackPage = () => {
   const navigate = useNavigate();
   const results = useGlobalState("results");
-  const [gptOutput, setGptOutput] = useState("Waiting for feedback");
-  const [prompt, setPrompt] = useState({ message: "" });
-  const test = results[0];
-  console.log(test);
-
+  const [gptOutput, setGptOutput] = useState("Waiting for feedback...");
+  const resultsBody = results[0];
+  const exchangeList = [];
+  for (var i = 1, len = resultsBody.length; i < len; i++) {
+    exchangeList.push(resultsBody[i].sentence);
+  }
+  exchangeList.pop();
+  const [count, setCount] = useState(0);
+  const [prompt, setPrompt] = useState({
+    message: `With regard to the interview question of ${
+      exchangeList[count]
+    }, I answered by saying ${
+      exchangeList[count + 1]
+    }. What are some tips you would give for me to improve my answer?`,
+  });
   // Function to handle navigating to the home page
   const handleNavigateToHome = () => {
     navigate("/");
   };
 
   const handleSubmit = () => {
-    const exchangeList = [];
-    for (var i = 1, len = test.length; i < len; i++) {
-      exchangeList.push(test[i].sentence);
-    }
-    exchangeList.pop();
-    setPrompt({
-      message: `With regard to the interview question of ${exchangeList[0]}, I answered by saying ${exchangeList[1]}. Do you have any tips for improving my answer?`,
-    });
-
-    for (var i = 0, len = exchangeList.length; i < len; i += 2) {
+    if (count < exchangeList.length - 1) {
       setPrompt({
         message: `With regard to the interview question of ${
-          exchangeList[i]
+          exchangeList[count]
         }, I answered by saying ${
-          exchangeList[i + 1]
-        }. Do you have any tips for improving my answer?`,
+          exchangeList[count + 1]
+        }. How well did I do in answering the question and what are some improvements I can make?`,
       });
     }
+    setGptOutput("Waiting for feedback...");
 
     console.log(exchangeList);
-    console.log(exchangeList[2]);
+    console.log(prompt);
   };
 
   useEffect(() => {
     console.log("Prompt updated");
-    postGptFeedback(prompt, setGptOutput);
+    postGptFeedback(prompt, setGptOutput).then(() => {
+      console.log(`postGptFeedback was run`);
+    });
+    const updatedCount = count + 2;
+    setCount(updatedCount);
   }, [prompt]);
 
   return (
     <Paper elevation={0}>
-      <Typography variant="h6" style={{ textAlign: "center" }}>
-        Feedback
-      </Typography>
-      <Button onClick={() => console.log(typeof results)}>
-        Click me for results
-      </Button>
-      <Typography style={{ textAlign: "center " }}>
-        Now it is time to understand how you can improve your responses.
-        {results[0].sentence}
-      </Typography>
-      <Typography variant="h6">Notes:</Typography>
-      <Avatar alt="Bryan Li" src="/images/Bryan Li.jpg">
-        {"Bryan Li"}
-      </Avatar>
-      <Typography>
-        This will be the spot where the feedback will be presented.
-      </Typography>
-
-      {/* Display the boxes side by side */}
-      <Button onClick={handleSubmit}>Print ExchangeList</Button>
-      <Box
+      <Grid
+        container
+        direction="column"
+        justifyContent="center"
+        alignItems="center"
+      >
+        {" "}
+        <Button
+          onClick={handleSubmit}
+          disabled={count >= exchangeList.length - 1}
+        >
+          Reveal Next Feedback
+        </Button>
+        <Button
+          onClick={handleNavigateToHome}
+          disabled={count < exchangeList.length - 1}
+        >
+          Finish Interview
+        </Button>
+      </Grid>
+      <Grid
         sx={{
           marginTop: 5,
           display: "flex",
@@ -98,12 +101,11 @@ const FeedbackPage = () => {
         <Box
           sx={{
             width: "30%",
-            height: 600,
             backgroundColor: "lightblue",
             alignSelf: "start",
             alignItems: "center",
             justifyContent: "center",
-            marginRight: 10,
+            marginRight: 2,
             padding: 2,
             borderRadius: 3,
             borderColor: "gray",
@@ -117,7 +119,7 @@ const FeedbackPage = () => {
           <List
             sx={{ width: "100%", bgcolor: "background.paper", borderRadius: 3 }}
           >
-            {test.map((output, index) => {
+            {resultsBody.slice(1, -1).map((output, index) => {
               return (
                 <>
                   <ListItem alignItems="flex-start">
@@ -151,16 +153,14 @@ const FeedbackPage = () => {
           </List>
         </Box>
 
-        {/* Display the second box */}
         <Box
           sx={{
             width: "30%",
-            height: 600,
             backgroundColor: "lightblue",
             alignSelf: "start",
             alignItems: "center",
             justifyContent: "center",
-            marginRight: 10,
+            marginLeft: 2,
             padding: 2,
             borderRadius: 3,
             borderColor: "gray",
@@ -171,38 +171,11 @@ const FeedbackPage = () => {
           <Typography variant="h6" sx={{ fontWeight: "bold" }}>
             Interview Feedback:
           </Typography>
+          <Typography>{`Question ${count / 2}`}</Typography>
+
           <Typography>{gptOutput}</Typography>
-          {/* <List
-            sx={{ width: "100%", bgcolor: "background.paper", borderRadius: 3 }}
-          >
-            {test.map((output, index) => {
-              return (
-                <>
-                  <ListItem alignItems="flex-start">
-                    <ListItemText
-                      primary="Feedback"
-                      secondary={
-                        <React.Fragment>
-                          <Typography
-                            sx={{ display: "inline" }}
-                            component="span"
-                            variant="body2"
-                            color="text.primary"
-                          >
-                            {`${output.speaker}: `}
-                          </Typography>
-                          {output.sentence}
-                        </React.Fragment>
-                      }
-                    />
-                  </ListItem>
-                  <Divider variant="inset" component="li" />
-                </>
-              );
-            })}
-          </List> */}
         </Box>
-      </Box>
+      </Grid>
     </Paper>
   );
 };

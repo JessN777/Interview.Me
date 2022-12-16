@@ -4,63 +4,27 @@ import {
   TextField,
   Button,
   Card,
-  CardContent,
   CardMedia,
   Typography,
   Grid,
+  Dialog,
+  DialogTitle,
+  DialogContent,
+  DialogContentText,
+  DialogActions,
 } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import { setGlobalState } from "../global";
+import { SAMPLE_COMPANIES } from "./constants";
 
-const companyProfiles = [
-  {
-    companyName: "Amazon",
-    pictureUrl: require("..//images/amazon-logo.png"),
-    companyValues: "commitment, teamwork, communication",
-  },
-  {
-    companyName: "Google",
-    pictureUrl: require("..//images/Google.jpg"),
-    companyValues: "commitment, teamwork, communication",
-  },
-  {
-    companyName: "Microsoft",
-    pictureUrl: require("..//images/Microsoft.png"),
-    companyValues: "commitment, teamwork, communication",
-  },
-  {
-    companyName: "Salesforce",
-    pictureUrl: require("..//images/Salesforce.jpg"),
-    companyValues: "commitment, teamwork, communication",
-  },
-  {
-    companyName: "Tesla",
-    pictureUrl: require("..//images/Tesla-Logo.jpg"),
-    companyValues: "commitment, teamwork, communication",
-  },
-  {
-    companyName: "Uber Eats",
-    pictureUrl: require("..//images/Uber Eats.png"),
-    companyValues: "commitment, teamwork, communication",
-  },
-  {
-    companyName: "Netflix",
-    pictureUrl: require("..//images/Netflix.png"),
-    companyValues: "commitment, teamwork, communication",
-  },
-  {
-    companyName: "Apple",
-    pictureUrl: require("..//images/Apple.png"),
-    companyValues: "commitment, teamwork, communication",
-  },
-];
+const companyProfiles = SAMPLE_COMPANIES;
 
 const HomePage = () => {
   const navigate = useNavigate();
   const [formValues, setFormValues] = useState({});
+  const [open, setOpen] = useState(false);
 
   const handleCompanySelection = (companyName, companyValues) => {
-    //There is a delay between setting and getting
     setGlobalState("companyName", companyName);
     setGlobalState("companyValues", companyValues);
     navigate("/position");
@@ -77,105 +41,118 @@ const HomePage = () => {
     setGlobalState("companyName", formValues.companyName);
     setGlobalState("companyValues", formValues.companyValues);
     navigate("/position");
+  };
 
-    setFormValues({});
+  const handleOpen = () => {
+    setOpen(!open);
   };
   return (
     <>
-      <Paper
-        sx={{
-          ml: 20,
-          mr: 20,
-          backgroundColor: "lightblue",
-          justifyItems: "center",
-        }}
-        elevation={0}
-        paddingBottom={"10px"}
-      >
-        <Typography fontSize={60} align="center" variant="h6">
-          Interview.ME
-        </Typography>
-        <Typography align="center" variant="h6">
-          "Software to help you invest in your education"
-        </Typography>
-      </Paper>
-      <Typography
-        variant="h6"
-        style={{
-          flexGrow: 1,
-          textAlign: "left",
-          color: "black",
-          fontWeight: "bold",
-        }}
-      >
-        Better Prepare For Interviews
-      </Typography>
       <Typography>
         Internships are a great way to gain work experience and transition into
         a role post-graduation. Our team has built an application to provide you
-        with feedback to
+        with feedback to ace the behavioral interview. We will help you better
+        structure your response, align with the company’s values and leave a
+        strong lasting impression.
       </Typography>
-      <Typography>
-        ace the behavioral interview. We will help you better structure your
-        response, align with the company’s values and leave a strong lasting
-        impression.
+      <Typography sx={{ fontWeight: "bold" }}>
+        To begin, choose the company you are applying to. Or, submit a new
+        company.
       </Typography>
       <Paper
         elevation={0}
-        style={{ display: "flex", justifyContent: "center", padding: 20 }}
+        style={{
+          display: "flex-grow",
+          flexGrow: 1,
+          justifyContent: "center",
+          padding: 20,
+        }}
       >
-        <div style={{ display: "flex", flexDirection: "column" }}>
-          <Grid justifyContent="center" container my={1} spacing={3}>
-            {companyProfiles.map((company) => (
-              <Grid item key={company.companyName}>
-                <Button
-                  sx={{ textTransform: "none" }}
-                  onClick={() =>
-                    handleCompanySelection(
-                      company.companyName,
-                      company.companyValues
-                    )
-                  }
+        <Grid container>
+          {companyProfiles.map((company) => (
+            <Grid item key={company.companyName}>
+              <Button
+                sx={{ textTransform: "none" }}
+                onClick={() =>
+                  handleCompanySelection(
+                    company.companyName,
+                    company.companyValues
+                  )
+                }
+              >
+                <Card elevation={3} sx={{ minWidth: 350, maxWidth: 350 }}>
+                  <CardMedia
+                    component="img"
+                    height="100"
+                    image={company.pictureUrl}
+                    alt="amazon"
+                  />
+                </Card>
+              </Button>
+            </Grid>
+          ))}
+          <Grid item key="new">
+            <Button sx={{ textTransform: "none" }} onClick={handleOpen}>
+              <Card
+                elevation={3}
+                sx={{
+                  minWidth: 350,
+                  maxWidth: 350,
+                  height: 100,
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                }}
+              >
+                <Typography
+                  variant="h5"
+                  component="div"
+                  sx={{ fontWeight: "bold" }}
                 >
-                  <Card elevation={3} sx={{ minWidth: 350, maxWidth: 350 }}>
-                    <CardMedia
-                      component="img"
-                      height="100"
-                      image={company.pictureUrl}
-                      alt="amazon"
-                    />
-                  </Card>
-                </Button>
-              </Grid>
-            ))}
+                  Submit a New Company
+                </Typography>
+              </Card>
+            </Button>
           </Grid>
+        </Grid>
 
-          <TextField
-            label="Company Name"
-            variant="outlined"
-            margin="normal"
-            name="companyName"
-            value={formValues.companyName || ""}
-            onChange={handleFormChange}
-          />
-          <TextField
-            label="Company Values"
-            variant="outlined"
-            margin="normal"
-            value={formValues.companyValues || ""}
-            name="companyValues"
-            onChange={handleFormChange}
-          />
-          <Button
-            variant="contained"
-            color="primary"
-            onClick={handleFormSubmit}
-            position="absolute"
-            bottom={0}
-          >
-            Submit
-          </Button>
-        </div>
+        <Dialog open={open} onClose={handleOpen}>
+          <DialogTitle>Submit a New Company</DialogTitle>
+          <DialogContent>
+            <DialogContentText>
+              Please input the name of the company, along with a short
+              description of what they do.
+            </DialogContentText>
+            <TextField
+              name="companyName"
+              fullWidth
+              label="Company Name"
+              placeholder="Eg. Unity Technologies"
+              multiline
+              variant="filled"
+              value={formValues.companyName || ""}
+              onChange={handleFormChange}
+            />
+            <TextField
+              name="companyValues"
+              fullWidth
+              label="Company Info"
+              placeholder="A company known for developing the Unity Game Engine, and for being leaders in the RT3D creation space."
+              multiline
+              variant="filled"
+              value={formValues.companyValues || ""}
+              onChange={handleFormChange}
+            />
+          </DialogContent>
+          <DialogActions style={{ justifyContent: "center" }}>
+            <Button
+              onClick={handleFormSubmit}
+              sx={{ textTransform: "none", color: "black" }}
+            >
+              Done
+            </Button>
+          </DialogActions>
+        </Dialog>
       </Paper>
     </>
   );

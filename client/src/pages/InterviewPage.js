@@ -16,7 +16,7 @@ mic.lang = "en-CAN";
 
 const InterviewPage = () => {
   const navigate = useNavigate();
-  const [gptOutput, setGptOutput] = useState("Waiting for a response...");
+  const [gptOutput, setGptOutput] = useState("Waiting for response...");
   const [companyName] = useGlobalState("companyName");
   const [companyPosition] = useGlobalState("companyPosition");
   const [companyValues] = useGlobalState("companyValues");
@@ -27,6 +27,7 @@ const InterviewPage = () => {
   });
 
   const handleSubmitAnswer = () => {
+    setGptOutput("Waiting for response...");
     setPrompt({
       message:
         prompt.message + `${gptOutput} \nYou: ${answer} \nInterviewBot: `,
@@ -80,22 +81,6 @@ const InterviewPage = () => {
 
   return (
     <>
-      <Paper
-        sx={{
-          ml: 20,
-          mr: 20,
-          backgroundColor: "lightblue",
-          justifyItems: "center",
-        }}
-        elevation={0}
-      >
-        <Typography fontSize={60} align="center" variant="h6">
-          Interview.ME
-        </Typography>
-        <Typography align="center" variant="h6">
-          "Software to help you invest in your education"
-        </Typography>
-      </Paper>
       <Typography variant="h6" sx={{ fontWeight: "bold" }}>
         Interview
       </Typography>

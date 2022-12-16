@@ -6,7 +6,7 @@ from flask_cors import cross_origin
 
 
 app = Flask(__name__)
-openai.api_key ="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"
+openai.api_key = os.getenv("OPENAI_API_KEY")
 
 @app.route("/")
 def hello():
@@ -40,7 +40,7 @@ def create_feedback():
   model="text-davinci-003",
   prompt=prompt['message'],
   temperature=0.3,
-  max_tokens=60,
+  max_tokens=200,
   top_p=1.0,
   frequency_penalty=0.5,
   presence_penalty=0.0,
