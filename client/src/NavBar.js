@@ -1,5 +1,15 @@
 import React from "react";
-import { AppBar, Toolbar, Typography, Breadcrumbs, Link } from "@mui/material";
+import {
+  AppBar,
+  Toolbar,
+  Typography,
+  Breadcrumbs,
+  Link,
+  Button,
+  IconButton,
+  Box,
+  withStyles,
+} from "@mui/material";
 
 function handleClick(event) {
   event.preventDefault();
@@ -8,44 +18,33 @@ function handleClick(event) {
 
 export default function NavBar() {
   return (
-    <div role="presentation" onClick={handleClick}>
-      <Breadcrumbs aria-label="breadcrumb">
-        <Link
-          underline="hover"
-          color="inherit"
-          href="https://en.wikipedia.org/wiki/Spider-Man"
-        >
-          Select a Company
-        </Link>
-        <Link
-          underline="hover"
-          color="inherit"
-          href="https://en.wikipedia.org/wiki/Spider-Man"
-        >
-          Select a Role
-        </Link>
-        <Link
-          underline="hover"
-          color="inherit"
-          href="https://en.wikipedia.org/wiki/Spider-Man"
-        >
-          Input Your Questions
-        </Link>
-        <Link
-          underline="hover"
-          color="inherit"
-          href="https://en.wikipedia.org/wiki/Spider-Man"
-        >
-          Practice Your Interview
-        </Link>
-        <Link
-          underline="hover"
-          color="inherit"
-          href="https://en.wikipedia.org/wiki/Spider-Man"
-        >
-          Feedback
-        </Link>
-      </Breadcrumbs>
-    </div>
+    <Box sx={{ flexGrow: 0, paddingBottom: "15px" }}>
+      <AppBar position="static" style={{ height: "50px" }}>
+        <Toolbar>
+          <IconButton
+            size="large"
+            edge="start"
+            color="inherit"
+            aria-label="menu"
+            sx={{ mr: 3 }}
+          ></IconButton>
+          <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
+            Company
+          </Typography>
+          <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
+            Position
+          </Typography>
+          <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
+            Questions
+          </Typography>
+          <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
+            Interview
+          </Typography>
+          <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
+            Feedback
+          </Typography>
+        </Toolbar>
+      </AppBar>
+    </Box>
   );
 }
