@@ -36,7 +36,13 @@ const FeedbackPage = () => {
       <Typography style={{ textAlign: "center" }}>
         Now it is time to understand how you can improve your responses.
       </Typography>
-      <Typography variant="h6"> Notes:</Typography>
+      <Typography variant="h6">Notes:</Typography>
+      <Avatar alt="Bryan Li" src="/images/Bryan Li.jpg">
+        {"Bryan Li"}
+      </Avatar>
+      <Typography>
+        This will be the spot where the feedback will be presented.
+      </Typography>
 
       {/* Display the boxes side by side */}
       <Box

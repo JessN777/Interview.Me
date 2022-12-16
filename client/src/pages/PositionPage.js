@@ -13,18 +13,56 @@ import { useNavigate } from "react-router-dom";
 import { setGlobalState } from "../global";
 
 const samplePositions = [
-  { position: "Software Developer", description: "Placeholder Traits" },
-  { position: "Account Manager", description: "Placeholder Traits" },
-  { position: "Strategy Consultant", description: "Placeholder Traits" },
-  { position: "Barista", description: "Placeholder Traits" },
-  { position: "Partner", description: "Placeholder Traits" },
-  { position: "Business Analyst", description: "Placeholder Traits" },
-  { position: "Copywriter", description: "Placeholder Traits" },
-  { position: "Product Manager", description: "Placeholder Traits" },
-  { position: "HR Specialist", description: "Placeholder Traits" },
-  { position: "Talent Coordinator", description: "Placeholder Traits" },
-  { position: "Talent Recruiter", description: "Placeholder Traits" },
-  { position: "Investment Banker", description: "Placeholder Traits" },
+  {
+    position: "Software Developer",
+    description:
+      "computer programming and coding, software development, problem solving and logical thinking",
+  },
+  {
+    position: "Account Manager",
+    description:
+      "listening, time management, communication, relationship building",
+  },
+  {
+    position: "Strategy Consultant",
+    description: "structured writing, creativity, problem solving",
+  },
+  {
+    position: "Barista",
+    description: "listening, time management, communication",
+  },
+  {
+    position: "Partner",
+    description: "realtionship building, communication, problem solving",
+  },
+  {
+    position: "Business Analyst",
+    description: "problem solving, structured writing, communication",
+  },
+  {
+    position: "Copywriter",
+    description: "problem solving, structured writing, communication",
+  },
+  {
+    position: "Product Manager",
+    description: "problem solving, structured writing, communication",
+  },
+  {
+    position: "HR Specialist",
+    description: "problem solving, structured writing, communication",
+  },
+  {
+    position: "Talent Coordinator",
+    description: "problem solving, structured writing, communication",
+  },
+  {
+    position: "Talent Recruiter",
+    description: "problem solving, structured writing, communication",
+  },
+  {
+    position: "Investment Banker",
+    description: "problem solving, structured writing, communication",
+  },
 ];
 
 const PositionPage = () => {
@@ -73,13 +111,11 @@ const PositionPage = () => {
             fontWeight: "bold",
           }}
         >
-          Interview
+          What Type Of Role Are You Applying To?
         </Typography>
         <Typography>
-          Listen to the question asked. Use the speaker button to replay the
-          interview question again. Use the microphone button to record you
-          response. Press the microphone button again to stop recording your
-          response.
+          Help us better understand how we can cater our feedback based on the
+          type of role you are interviewing for.
         </Typography>
         <Grid container rowSpacing={5} columnSpacing={10}>
           {samplePositions.map((position, index) => (

@@ -92,7 +92,8 @@ const InterviewPage = () => {
           Listen to the question asked. Use the speaker button to replay the
           interview question again. Use the microphone button to record you
           response. Press the microphone button again to stop recording your
-          response. The response will appear below:
+          response. Once you are satisfied with your response, press the send
+          button to upload your answer. The response will appear below:
         </Typography>
         <Box
           sx={{
