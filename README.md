@@ -13,7 +13,7 @@ We have stored data on various F500 companies and common job positions. When you
 - Learning the basics of AI
 - Leveraging agile software development methodologies
 
-## What's next for Lucid AI
+## What's next for Interview.ME
 - Developing a more scalable solution
 - Learning how to train our ML model
 - Increasing the amount of data on the companies
