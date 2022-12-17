@@ -1,6 +1,7 @@
 # Interview.ME
 
 OpenAI Hackathon Project built by: James, Jessica and Brian
+https://www.youtube.com/watch?v=snYQF07WZMo&feature=youtu.be 
 
 ## What it does
 Insert your company, position and practice questions in a matter of secounds. Then Interview.ME will help listen to your responses and provide you with necessary feedback on how to strengthen your answers.
