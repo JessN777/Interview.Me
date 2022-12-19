@@ -11,6 +11,7 @@ import {
   ListItemText,
   Divider,
   Grid,
+  LinearProgress,
 } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import { useGlobalState, postGptFeedback } from "../global";
@@ -64,119 +65,136 @@ const FeedbackPage = () => {
   }, [prompt]);
 
   return (
-    <Paper elevation={0}>
-      <Grid
-        container
-        direction="column"
-        justifyContent="center"
-        alignItems="center"
-      >
-        {" "}
-        <Button
-          onClick={handleSubmit}
-          disabled={count >= exchangeList.length - 1}
+    <>
+      <Box height={20}>
+        <Box height={20} />
+        <LinearProgress variant="determinate" value={"100"} />
+        <Typography
+          variant="body1"
+          sx={{ textAlign: "center", color: "black" }}
         >
-          Reveal Next Feedback
-        </Button>
-        <Button
-          onClick={handleNavigateToHome}
-          disabled={count < exchangeList.length - 1}
+          100%
+        </Typography>
+      </Box>
+      <Box height={30} />
+      <Paper elevation={0}>
+        <Grid
+          container
+          direction="column"
+          justifyContent="center"
+          alignItems="center"
         >
-          Finish Interview
-        </Button>
-      </Grid>
-      <Grid
-        sx={{
-          marginTop: 5,
-          display: "flex",
-          width: "100%",
-          height: 200,
-          alignSelf: "center",
-          alignItems: "center",
-          justifyContent: "center",
-          borderRadius: 3,
-        }}
-      >
-        {/* Display the first box */}
-        <Box
-          sx={{
-            width: "30%",
-            backgroundColor: "lightblue",
-            alignSelf: "start",
-            alignItems: "center",
-            justifyContent: "center",
-            marginRight: 2,
-            padding: 2,
-            borderRadius: 3,
-            borderColor: "gray",
-            borderWidth: 2,
-            borderStyle: "solid",
-          }}
-        >
-          <Typography variant="h6" sx={{ fontWeight: "bold" }}>
-            What was said during the interview:
-          </Typography>
-          <List
-            sx={{ width: "100%", bgcolor: "background.paper", borderRadius: 3 }}
+          {" "}
+          <Button
+            onClick={handleSubmit}
+            disabled={count >= exchangeList.length - 1}
           >
-            {resultsBody.slice(1, -1).map((output, index) => {
-              return (
-                <>
-                  <ListItem alignItems="flex-start">
-                    <ListItemAvatar>
-                      <Avatar
-                        alt={output.speaker}
-                        src="/static/images/avatar/1.jpg"
-                      />
-                    </ListItemAvatar>
-                    <ListItemText
-                      primary={index % 2 === 0 ? "Question" : "Answer"}
-                      secondary={
-                        <React.Fragment>
-                          <Typography
-                            sx={{ display: "inline" }}
-                            component="span"
-                            variant="body2"
-                            color="text.primary"
-                          >
-                            {`${output.speaker}: `}
-                          </Typography>
-                          {output.sentence}
-                        </React.Fragment>
-                      }
-                    />
-                  </ListItem>
-                  <Divider variant="inset" component="li" />
-                </>
-              );
-            })}
-          </List>
-        </Box>
-
-        <Box
+            Reveal Next Feedback
+          </Button>
+          <Button
+            onClick={handleNavigateToHome}
+            disabled={count < exchangeList.length - 1}
+          >
+            Finish Interview
+          </Button>
+        </Grid>
+        <Grid
           sx={{
-            width: "30%",
-            backgroundColor: "lightblue",
-            alignSelf: "start",
+            marginTop: 5,
+            display: "flex",
+            width: "100%",
+            height: 200,
+            alignSelf: "center",
             alignItems: "center",
             justifyContent: "center",
-            marginLeft: 2,
-            padding: 2,
             borderRadius: 3,
-            borderColor: "gray",
-            borderWidth: 2,
-            borderStyle: "solid",
           }}
         >
-          <Typography variant="h6" sx={{ fontWeight: "bold" }}>
-            Interview Feedback:
-          </Typography>
-          <Typography>{`Question ${count / 2}`}</Typography>
+          {/* Display the first box */}
+          <Box
+            sx={{
+              width: "30%",
+              backgroundColor: "lightblue",
+              alignSelf: "start",
+              alignItems: "center",
+              justifyContent: "center",
+              marginRight: 2,
+              padding: 2,
+              borderRadius: 3,
+              borderColor: "gray",
+              borderWidth: 2,
+              borderStyle: "solid",
+            }}
+          >
+            <Typography variant="h6" sx={{ fontWeight: "bold" }}>
+              What was said during the interview:
+            </Typography>
+            <List
+              sx={{
+                width: "100%",
+                bgcolor: "background.paper",
+                borderRadius: 3,
+              }}
+            >
+              {resultsBody.slice(1, -1).map((output, index) => {
+                return (
+                  <>
+                    <ListItem alignItems="flex-start">
+                      <ListItemAvatar>
+                        <Avatar
+                          alt={output.speaker}
+                          src="/static/images/avatar/1.jpg"
+                        />
+                      </ListItemAvatar>
+                      <ListItemText
+                        primary={index % 2 === 0 ? "Question" : "Answer"}
+                        secondary={
+                          <React.Fragment>
+                            <Typography
+                              sx={{ display: "inline" }}
+                              component="span"
+                              variant="body2"
+                              color="text.primary"
+                            >
+                              {`${output.speaker}: `}
+                            </Typography>
+                            {output.sentence}
+                          </React.Fragment>
+                        }
+                      />
+                    </ListItem>
+                    <Divider variant="inset" component="li" />
+                  </>
+                );
+              })}
+            </List>
+          </Box>
 
-          <Typography>{gptOutput}</Typography>
-        </Box>
-      </Grid>
-    </Paper>
+          <Box
+            sx={{
+              width: "30%",
+              backgroundColor: "lightblue",
+              alignSelf: "start",
+              alignItems: "center",
+              justifyContent: "center",
+              marginLeft: 2,
+              padding: 2,
+              borderRadius: 3,
+              borderColor: "gray",
+              borderWidth: 2,
+              borderStyle: "solid",
+            }}
+          >
+            <Typography variant="h6" sx={{ fontWeight: "bold" }}>
+              Interview Feedback:
+            </Typography>
+            <Typography>{`Question ${count / 2}`}</Typography>
+
+            <Typography>{gptOutput}</Typography>
+          </Box>
+        </Grid>
+      </Paper>
+    </>
   );
 };
 

@@ -5,7 +5,7 @@ import InterviewPage from "./pages/InterviewPage";
 import NavBar from "./NavBar";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import FeedbackPage from "./pages/FeedbackPage";
-import { Typography, Paper, Container } from "@mui/material";
+import { Typography, Paper, Container, Box } from "@mui/material";
 
 function App() {
   return (

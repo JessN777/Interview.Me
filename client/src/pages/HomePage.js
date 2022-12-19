@@ -12,6 +12,8 @@ import {
   DialogContent,
   DialogContentText,
   DialogActions,
+  LinearProgress,
+  Box,
 } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import { setGlobalState } from "../global";
@@ -48,6 +50,17 @@ const HomePage = () => {
   };
   return (
     <>
+      <Box height={20}>
+        <Box height={20} />
+        <LinearProgress variant="determinate" value={"10"} />
+        <Typography
+          variant="body1"
+          sx={{ textAlign: "center", color: "black" }}
+        >
+          10%
+        </Typography>
+      </Box>
+      <Box height={30} />
       <Typography>
         Internships are a great way to gain work experience and transition into
         a role post-graduation. Our team has built an application to provide you

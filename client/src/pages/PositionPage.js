@@ -8,6 +8,8 @@ import {
   Grid,
   Button,
   TextField,
+  LinearProgress,
+  Box,
 } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import { setGlobalState } from "../global";
@@ -98,6 +100,17 @@ const PositionPage = () => {
 
   return (
     <>
+      <Box height={20}>
+        <Box height={20} />
+        <LinearProgress variant="determinate" value={"40"} />
+        <Typography
+          variant="body1"
+          sx={{ textAlign: "center", color: "black" }}
+        >
+          40%
+        </Typography>
+      </Box>
+      <Box height={30} />
       <Typography
         variant="h6"
         style={{

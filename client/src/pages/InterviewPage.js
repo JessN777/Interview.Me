@@ -1,5 +1,13 @@
 import React, { useState, useEffect } from "react";
-import { Typography, Grid, Button, Paper, Box, TextField } from "@mui/material";
+import {
+  Typography,
+  Grid,
+  Button,
+  Paper,
+  Box,
+  TextField,
+  LinearProgress,
+} from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import MicIcon from "@mui/icons-material/Mic";
 import MicOffIcon from "@mui/icons-material/MicOff";
@@ -81,6 +89,17 @@ const InterviewPage = () => {
 
   return (
     <>
+      <Box height={20}>
+        <Box height={20} />
+        <LinearProgress variant="determinate" value={"70"} />
+        <Typography
+          variant="body1"
+          sx={{ textAlign: "center", color: "black" }}
+        >
+          70%
+        </Typography>
+      </Box>
+      <Box height={30} />
       <Typography variant="h6" sx={{ fontWeight: "bold" }}>
         Interview
       </Typography>
