@@ -1,5 +1,12 @@
 import React, { useState } from "react";
-import { Paper, Typography, Button, TextField } from "@mui/material";
+import {
+  Paper,
+  Typography,
+  Button,
+  TextField,
+  LinearProgress,
+  Box,
+} from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import { setGlobalState } from "../global";
 
@@ -49,6 +56,17 @@ const QuestionsPage = () => {
           "Software to help you invest in your education"
         </Typography>
       </Paper>
+      <Box height={20}>
+        <Box height={20} />
+        <LinearProgress variant="determinate" value={"50"} />
+        <Typography
+          variant="body1"
+          sx={{ textAlign: "center", color: "black" }}
+        >
+          50%
+        </Typography>
+      </Box>
+      <Box height={30} />
       <Typography
         variant="h6"
         style={{
