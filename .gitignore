@@ -10,7 +10,7 @@
 /coverage
 
 # production
-/build
+# /build
 
 # misc
 .DS_Store
@@ -25,3 +25,4 @@ yarn-error.log*
 
 notes.txt
 .env
+/server/fl_venv
